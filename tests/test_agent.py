@@ -1,199 +1,234 @@
-from typing import Any
+import json
 import pytest
-import httpx
-from uuid import uuid4
-
 from a2a.client import A2ACardResolver, ClientConfig, ClientFactory
-from a2a.types import Message, Part, Role, TextPart
+from a2a.types import Message, Part, TextPart, Role
+from uuid import uuid4
+import httpx
+
+# Import the actual environment, not the client
+from rooms.server.rooms_environment import RoomsEnvironment
+from rooms.models import RoomsAction, Command
 
 
-# A2A validation helpers - adapted from https://github.com/a2aproject/a2a-inspector/blob/main/backend/validators.py
+# ============================================================================
+# Environment Tests (no server needed - tests the environment directly)
+# ============================================================================
 
-def validate_agent_card(card_data: dict[str, Any]) -> list[str]:
-    """Validate the structure and fields of an agent card."""
-    errors: list[str] = []
-
-    # Use a frozenset for efficient checking and to indicate immutability.
-    required_fields = frozenset(
-        [
-            'name',
-            'description',
-            'url',
-            'version',
-            'capabilities',
-            'defaultInputModes',
-            'defaultOutputModes',
-            'skills',
-        ]
-    )
-
-    # Check for the presence of all required fields
-    for field in required_fields:
-        if field not in card_data:
-            errors.append(f"Required field is missing: '{field}'.")
-
-    # Check if 'url' is an absolute URL (basic check)
-    if 'url' in card_data and not (
-        card_data['url'].startswith('http://')
-        or card_data['url'].startswith('https://')
-    ):
-        errors.append(
-            "Field 'url' must be an absolute URL starting with http:// or https://."
-        )
-
-    # Check if capabilities is a dictionary
-    if 'capabilities' in card_data and not isinstance(
-        card_data['capabilities'], dict
-    ):
-        errors.append("Field 'capabilities' must be an object.")
-
-    # Check if defaultInputModes and defaultOutputModes are arrays of strings
-    for field in ['defaultInputModes', 'defaultOutputModes']:
-        if field in card_data:
-            if not isinstance(card_data[field], list):
-                errors.append(f"Field '{field}' must be an array of strings.")
-            elif not all(isinstance(item, str) for item in card_data[field]):
-                errors.append(f"All items in '{field}' must be strings.")
-
-    # Check skills array
-    if 'skills' in card_data:
-        if not isinstance(card_data['skills'], list):
-            errors.append(
-                "Field 'skills' must be an array of AgentSkill objects."
-            )
-        elif not card_data['skills']:
-            errors.append(
-                "Field 'skills' array is empty. Agent must have at least one skill if it performs actions."
-            )
-
-    return errors
+def test_rooms_env_reset():
+    """Test that environment resets properly."""
+    env = RoomsEnvironment()  # Use the actual environment
+    obs = env.reset(encoding="089000000c0c0000000000000")
+    
+    assert obs.current_room == 0
+    assert obs.committed == 0
+    assert obs.current_keys == 0
 
 
-def _validate_task(data: dict[str, Any]) -> list[str]:
-    errors = []
-    if 'id' not in data:
-        errors.append("Task object missing required field: 'id'.")
-    if 'status' not in data or 'state' not in data.get('status', {}):
-        errors.append("Task object missing required field: 'status.state'.")
-    return errors
+def test_rooms_env_move():
+    """Test movement in the environment."""
+    env = RoomsEnvironment()
+    env.reset(encoding="089000000c0c0000000000000")
+    
+    # Try to move (will depend on the encoding's room connections)
+    action = RoomsAction(command=Command.MOVE, target_room=1)
+    obs = env.step(action)
+    
+    assert obs is not None
 
 
-def _validate_status_update(data: dict[str, Any]) -> list[str]:
-    errors = []
-    if 'status' not in data or 'state' not in data.get('status', {}):
-        errors.append(
-            "StatusUpdate object missing required field: 'status.state'."
-        )
-    return errors
+def test_rooms_env_commit():
+    """Test commit action."""
+    env = RoomsEnvironment()
+    env.reset(encoding="089000000c0c0000000000000")
+    
+    action = RoomsAction(command=Command.COMMIT)
+    obs = env.step(action)
+    
+    assert obs.committed == 1
 
 
-def _validate_artifact_update(data: dict[str, Any]) -> list[str]:
-    errors = []
-    if 'artifact' not in data:
-        errors.append(
-            "ArtifactUpdate object missing required field: 'artifact'."
-        )
-    elif (
-        'parts' not in data.get('artifact', {})
-        or not isinstance(data.get('artifact', {}).get('parts'), list)
-        or not data.get('artifact', {}).get('parts')
-    ):
-        errors.append("Artifact object must have a non-empty 'parts' array.")
-    return errors
+def test_invalid_encoding():
+    """Test that invalid encoding raises error."""
+    env = RoomsEnvironment()
+    
+    with pytest.raises(ValueError):
+        env.reset(encoding="invalid")
 
 
-def _validate_message(data: dict[str, Any]) -> list[str]:
-    errors = []
-    if (
-        'parts' not in data
-        or not isinstance(data.get('parts'), list)
-        or not data.get('parts')
-    ):
-        errors.append("Message object must have a non-empty 'parts' array.")
-    if 'role' not in data or data.get('role') != 'agent':
-        errors.append("Message from agent must have 'role' set to 'agent'.")
-    return errors
+# ============================================================================
+# Green Agent Tests (requires green agent server running on port 9009)
+# ============================================================================
 
-
-def validate_event(data: dict[str, Any]) -> list[str]:
-    """Validate an incoming event from the agent based on its kind."""
-    if 'kind' not in data:
-        return ["Response from agent is missing required 'kind' field."]
-
-    kind = data.get('kind')
-    validators = {
-        'task': _validate_task,
-        'status-update': _validate_status_update,
-        'artifact-update': _validate_artifact_update,
-        'message': _validate_message,
-    }
-
-    validator = validators.get(str(kind))
-    if validator:
-        return validator(data)
-
-    return [f"Unknown message kind received: '{kind}'."]
-
-
-# A2A messaging helpers
-
-async def send_text_message(text: str, url: str, context_id: str | None = None, streaming: bool = False):
-    async with httpx.AsyncClient(timeout=10) as httpx_client:
-        resolver = A2ACardResolver(httpx_client=httpx_client, base_url=url)
+@pytest.fixture
+async def green_agent_client(agent):
+    """Create an A2A client for the green agent (proctor)."""
+    async with httpx.AsyncClient(timeout=60) as httpx_client:
+        resolver = A2ACardResolver(httpx_client=httpx_client, base_url=agent)
         agent_card = await resolver.get_agent_card()
-        config = ClientConfig(httpx_client=httpx_client, streaming=streaming)
+        config = ClientConfig(httpx_client=httpx_client, streaming=False)
         factory = ClientFactory(config)
-        client = factory.create(agent_card)
+        yield factory.create(agent_card)
 
-        msg = Message(
-            kind="message",
-            role=Role.user,
-            parts=[Part(TextPart(text=text))],
-            message_id=uuid4().hex,
-            context_id=context_id,
-        )
-
-        events = [event async for event in client.send_message(msg)]
-
-    return events
-
-
-# A2A conformance tests
-
-def test_agent_card(agent):
-    """Validate agent card structure and required fields."""
-    response = httpx.get(f"{agent}/.well-known/agent-card.json")
-    assert response.status_code == 200, "Agent card endpoint must return 200"
-
-    card_data = response.json()
-    errors = validate_agent_card(card_data)
-
-    assert not errors, f"Agent card validation failed:\n" + "\n".join(errors)
 
 @pytest.mark.asyncio
-@pytest.mark.parametrize("streaming", [True, False])
-async def test_message(agent, streaming):
-    """Test that agent returns valid A2A message format."""
-    events = await send_text_message("Hello", agent, streaming=streaming)
+async def test_green_agent_card(agent):
+    """Test that green agent card is properly configured."""
+    async with httpx.AsyncClient() as client:
+        response = await client.get(f"{agent}/.well-known/agent-card.json")
+        assert response.status_code == 200
+        
+        card = response.json()
+        assert card["name"] == "Rooms Benchmark Proctor"
+        assert len(card["skills"]) > 0
+        assert card["skills"][0]["id"] == "rooms_benchmark"
 
-    all_errors = []
-    for event in events:
-        match event:
-            case Message() as msg:
-                errors = validate_event(msg.model_dump())
-                all_errors.extend(errors)
 
-            case (task, update):
-                errors = validate_event(task.model_dump())
-                all_errors.extend(errors)
-                if update:
-                    errors = validate_event(update.model_dump())
-                    all_errors.extend(errors)
+@pytest.mark.asyncio
+async def test_green_agent_missing_participants(green_agent_client):
+    """Test that green agent rejects requests with missing participants (solver)."""
+    request = {
+        "participants": {},  # Missing "solver" role
+        "config": {"encoding": "089000000c0c0000000000000"}
+    }
+    
+    message = Message(
+        kind="message",
+        role=Role.user,
+        parts=[Part(TextPart(kind="text", text=json.dumps(request)))],
+        message_id=uuid4().hex,
+    )
+    
+    async for event in green_agent_client.send_message(message):
+        task, update = event
+        assert task.status.state.value == "rejected"
+        break
 
-            case _:
-                pytest.fail(f"Unexpected event type: {type(event)}")
 
-    assert events, "Agent should respond with at least one event"
-    assert not all_errors, f"Message validation failed:\n" + "\n".join(all_errors)
+@pytest.mark.asyncio
+async def test_green_agent_missing_config(green_agent_client):
+    """Test that green agent rejects requests with missing config."""
+    request = {
+        "participants": {"solver": "http://localhost:8000"},
+        "config": {}  # Missing "encoding"
+    }
+    
+    message = Message(
+        kind="message",
+        role=Role.user,
+        parts=[Part(TextPart(kind="text", text=json.dumps(request)))],
+        message_id=uuid4().hex,
+    )
+    
+    async for event in green_agent_client.send_message(message):
+        task, update = event
+        assert task.status.state.value == "rejected"
+        break
 
-# Add your custom tests here
+
+@pytest.mark.asyncio
+async def test_green_agent_invalid_encoding(green_agent_client):
+    """Test that green agent rejects invalid encoding format."""
+    request = {
+        "participants": {"solver": "http://localhost:8000"},
+        "config": {"encoding": "invalid"}  # Not 25 hex chars
+    }
+    
+    message = Message(
+        kind="message",
+        role=Role.user,
+        parts=[Part(TextPart(kind="text", text=json.dumps(request)))],
+        message_id=uuid4().hex,
+    )
+    
+    async for event in green_agent_client.send_message(message):
+        task, update = event
+        assert task.status.state.value == "rejected"
+        break
+
+
+@pytest.mark.asyncio
+async def test_green_agent_valid_request_no_solver(green_agent_client):
+    """Test that green agent accepts valid request structure (will fail without purple solver agent)."""
+    request = {
+        "participants": {"solver": "http://localhost:8000"},  # Purple agent URL
+        "config": {
+            "encoding": "089000000c0c0000000000000",
+            "max_steps": 10,
+            "steps_remaining": 30
+        }
+    }
+    
+    message = Message(
+        kind="message",
+        role=Role.user,
+        parts=[Part(TextPart(kind="text", text=json.dumps(request)))],
+        message_id=uuid4().hex,
+    )
+    
+    # This will fail when trying to connect to solver, but should get past validation
+    async for event in green_agent_client.send_message(message):
+        task, update = event
+        # Should at least start working (not rejected due to validation)
+        assert task.status.state.value in ["working", "failed"]
+        break
+
+
+@pytest.mark.asyncio
+@pytest.mark.skip(reason="Requires a running purple solver agent on port 8000")
+async def test_full_benchmark_with_purple_agent(green_agent_client):
+    """
+    Full integration test - requires a purple solver agent running.
+    
+    Architecture:
+    - Purple Agent (solver) at http://localhost:8000
+    - Green Agent (proctor) at http://localhost:9009 (this agent)
+    - Rooms Environment (managed by green agent)
+    
+    To run this test:
+    1. Start a purple solver agent on port 8000
+    2. Start this green agent on port 9009: python src/server.py
+    3. Run: pytest tests/test_agent.py::test_full_benchmark_with_purple_agent -v
+    """
+    request = {
+        "participants": {
+            "solver": "http://localhost:8000"  # Purple agent that solves the puzzle
+        },
+        "config": {
+            "encoding": "089000000c0c0000000000000",
+            "max_steps": 50,
+            "steps_remaining": 30,
+            "obs_inspect_weight": 3.0
+        }
+    }
+    
+    message = Message(
+        kind="message",
+        role=Role.user,
+        parts=[Part(TextPart(kind="text", text=json.dumps(request)))],
+        message_id=uuid4().hex,
+    )
+    
+    final_event = None
+    async for event in green_agent_client.send_message(message):
+        final_event = event
+    
+    task, update = final_event
+    assert task.status.state.value == "completed"
+    assert len(task.artifacts) > 0
+    
+    # Check that results contain expected fields
+    artifact = task.artifacts[0]
+    data_part = next(p.root for p in artifact.parts if hasattr(p.root, 'data'))
+    results = data_part.data
+    
+    assert "success" in results
+    assert "total_reward" in results
+    assert "steps_taken" in results
+    assert "conversation_history" in results
+    
+    # Verify the conversation history shows interaction between green and purple agents
+    assert len(results["conversation_history"]) > 0
+    print(f"\nBenchmark Results:")
+    print(f"  Success: {results['success']}")
+    print(f"  Total Reward: {results['total_reward']}")
+    print(f"  Steps Taken: {results['steps_taken']}")

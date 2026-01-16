@@ -8,6 +8,7 @@ dependencies = [
     "a2a-sdk[http-server]>=0.3.20",
     "pydantic>=2.12.5",
     "uvicorn>=0.38.0",
+    "openenv-core @ git+https://github.com/meta-pytorch/OpenEnv.git",
 ]
 
 [project.optional-dependencies]
@@ -16,3 +17,15 @@ test = [
     "pytest-asyncio>=0.24.0",
     "httpx>=0.28.1",
 ]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["rooms", "rooms.server", "src"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]

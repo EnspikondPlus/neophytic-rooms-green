@@ -20,20 +20,19 @@ def main():
     parser.add_argument("--card-url", type=str, help="URL to advertise in the agent card")
     args = parser.parse_args()
 
-    # Fill in your agent card
-    # See: https://a2a-protocol.org/latest/tutorials/python/3-agent-skills-and-card/
-    
     skill = AgentSkill(
-        id="",
-        name="",
-        description="",
-        tags=[],
-        examples=[]
+        id="rooms_benchmark",
+        name="Rooms Navigation Benchmark",
+        description="Evaluate an agent's ability to navigate a locked room puzzle",
+        tags=["benchmark", "navigation", "planning"],
+        examples=[
+            "Evaluate agent on rooms puzzle with encoding 0000000000000000000000000"
+        ]
     )
 
     agent_card = AgentCard(
-        name="",
-        description="",
+        name="Rooms Benchmark Proctor",
+        description="A green agent that proctors the Rooms navigation benchmark for A2A compatible agents",
         url=args.card_url or f"http://{args.host}:{args.port}/",
         version='1.0.0',
         default_input_modes=['text'],
