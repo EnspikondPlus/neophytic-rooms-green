@@ -29,3 +29,7 @@ packages = ["rooms", "rooms.server", "src"]
 asyncio_mode = "auto"
 testpaths = ["tests"]
 pythonpath = ["."]
+
+[project.scripts]
+green-server = "src.server:main"
+green-cli = "src.cli:main"

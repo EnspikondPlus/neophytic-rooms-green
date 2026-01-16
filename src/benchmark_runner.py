@@ -1,11 +1,19 @@
 import asyncio
 import json
-from typing import Dict, List, Any
+import re
+import os
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Any
 from pydantic import HttpUrl
 
+# Adjust relative imports based on your structure
 from .benchmark_config import BenchmarkDatabase, BenchmarkConfig, BenchmarkCase
 from .messenger import Messenger
+from .agent import Agent
+from a2a.types import Message, Part, TextPart, Role
+from uuid import uuid4
+from .local_runtime import LocalTaskUpdater
 
 
 class BenchmarkRunner:
@@ -19,22 +27,15 @@ class BenchmarkRunner:
     async def run_benchmark_suite(
         self,
         purple_agent_url: str,
-        output_path: str = None
+        output_path: str = None  # This is now treated as a "base name" or ignored if auto-generating
     ) -> Dict[str, Any]:
-        """Run full benchmark suite against a purple agent.
-        
-        Args:
-            purple_agent_url: URL of the purple agent to test
-            output_path: Optional path to save results JSON
-        
-        Returns:
-            Dictionary with benchmark results
-        """
+        """Run full benchmark suite against a purple agent."""
         print(f"\n{'='*60}")
         print(f"🟢 Running Rooms Benchmark Suite")
         print(f"{'='*60}")
         print(f"Purple Agent: {purple_agent_url}")
         print(f"Categories: {', '.join(self.config.categories)}")
+        print(f"Max Steps: {self.config.max_steps}")
         print(f"{'='*60}\n")
         
         # Get test cases
@@ -51,15 +52,35 @@ class BenchmarkRunner:
             results.append(result)
             
             # Print result
-            status = "✅ PASS" if result["success"] else "❌ FAIL"
-            print(f"  {status} - Reward: {result['total_reward']:.2f}, Steps: {result['steps_taken']}\n")
+            status = "✅ PASS" if result.get("success") else "❌ FAIL"
+            steps = result.get("steps_taken", 0)
+            reward = result.get("total_reward", 0.0)
+            print(f"  {status} - Reward: {reward:.2f}, Steps: {steps}\n")
         
         # Compile summary
         summary = self._compile_summary(results, cases)
         
-        # Save results if path provided
+        # --- NEW LOGGING LOGIC ---
+        # 1. Determine log directory
+        log_dir = Path("logs")
+        log_dir.mkdir(exist_ok=True)
+        
+        # 2. Generate timestamped filename
+        timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        
         if output_path:
-            self._save_results(summary, output_path)
+            # If user provided a specific path (e.g. "my_run.json"), 
+            # insert timestamp before extension: "my_run_2023-10-27_10-00-00.json"
+            p = Path(output_path)
+            stem = p.stem
+            suffix = p.suffix
+            filename = f"{stem}_{timestamp}{suffix}"
+            final_path = log_dir / filename
+        else:
+            # Default name
+            final_path = log_dir / f"benchmark_results_{timestamp}.json"
+        
+        self._save_results(summary, str(final_path))
         
         self._print_summary(summary)
         
@@ -72,8 +93,7 @@ class BenchmarkRunner:
     ) -> Dict[str, Any]:
         """Run a single benchmark case."""
         
-        # Prepare request for green agent (itself)
-        request = {
+        request_payload = {
             "participants": {
                 "solver": purple_agent_url
             },
@@ -87,27 +107,48 @@ class BenchmarkRunner:
                 "commit_reset": self.config.commit_reset,
             }
         }
-        
-        # This would normally be called through the agent's run method
-        # For now, we'll simulate the result structure
-        # In practice, this would integrate with your Agent.run() method
-        
+
+        message = Message(
+            kind="message",
+            role=Role.user,
+            parts=[Part(root=TextPart(kind="text", text=json.dumps(request_payload)))],
+            message_id=uuid4().hex,
+        )
+
+        agent = Agent()
+        updater = LocalTaskUpdater()
+
         try:
-            # TODO: Integrate with actual agent execution
-            # For now, return a placeholder
-            return {
-                "case_id": case.id,
-                "encoding": case.encoding,
-                "category": case.category,
-                "difficulty": case.difficulty,
-                "success": False,
-                "total_reward": 0.0,
-                "steps_taken": 0,
-                "optimal_steps": case.optimal_steps,
-                "efficiency": 0.0,
-                "error": "Not yet implemented"
-            }
+            await agent.run(message, updater)
+            
+            data = updater.get_result_data()
+            
+            if data:
+                data["case_id"] = case.id
+                data["difficulty"] = case.difficulty
+                data["category"] = case.category
+                data["optimal_steps"] = case.optimal_steps
+                
+                if data["success"] and data["steps_taken"] > 0:
+                    data["efficiency"] = case.optimal_steps / data["steps_taken"]
+                else:
+                    data["efficiency"] = 0.0
+                    
+                return data
+            else:
+                return {
+                    "case_id": case.id,
+                    "error": "Agent finished but returned no data artifact",
+                    "success": False,
+                    "total_reward": 0.0,
+                    "steps_taken": 0,
+                    "category": case.category
+                }
+
         except Exception as e:
+            print(f"DEBUG: Exception caught in runner: {e}")
+            import traceback
+            traceback.print_exc()
             return {
                 "case_id": case.id,
                 "encoding": case.encoding,
@@ -128,19 +169,19 @@ class BenchmarkRunner:
     ) -> Dict[str, Any]:
         """Compile summary statistics from results."""
         total = len(results)
-        passed = sum(1 for r in results if r["success"])
+        passed = sum(1 for r in results if r.get("success"))
         
         # Group by category
         by_category = {}
         for result in results:
-            cat = result["category"]
+            cat = result.get("category", "unknown")
             if cat not in by_category:
                 by_category[cat] = {"passed": 0, "total": 0, "avg_reward": 0.0}
             
             by_category[cat]["total"] += 1
-            if result["success"]:
+            if result.get("success"):
                 by_category[cat]["passed"] += 1
-            by_category[cat]["avg_reward"] += result["total_reward"]
+            by_category[cat]["avg_reward"] += result.get("total_reward", 0.0)
         
         # Calculate averages
         for cat in by_category:
@@ -159,9 +200,33 @@ class BenchmarkRunner:
         }
     
     def _save_results(self, summary: Dict[str, Any], output_path: str):
-        """Save results to JSON file."""
+        """Save results to JSON file with compacted arrays."""
+        
+        # 1. Generate standard pretty JSON string
+        json_str = json.dumps(summary, indent=2)
+        
+        # 2. Define a regex to find simple arrays (no nested objects/arrays)
+        # Matches: [ ... ] where ... contains NO { or [ characters
+        # This safely targets lists of numbers/strings while skipping complex nested structures
+        array_pattern = re.compile(r'\[[^\{\[]*?\]')
+
+        def compact_match(match):
+            # Remove all whitespace/newlines inside the match, then add single spaces back
+            text = match.group(0)
+            # Collapse whitespace to single space
+            compact = re.sub(r'\s+', ' ', text)
+            # Clean up spacing around brackets: [ 1, 2 ] -> [1, 2]
+            return compact.replace('[ ', '[').replace(' ]', ']')
+
+        # 3. Apply the regex substitution
+        json_str = array_pattern.sub(compact_match, json_str)
+        
+        # Ensure directory exists (just in case)
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
+        
         with open(output_path, 'w') as f:
-            json.dump(summary, f, indent=2)
+            f.write(json_str)
+            
         print(f"\n💾 Results saved to: {output_path}")
     
     def _print_summary(self, summary: Dict[str, Any]):

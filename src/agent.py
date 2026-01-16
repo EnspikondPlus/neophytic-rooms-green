@@ -4,10 +4,11 @@ from a2a.server.tasks import TaskUpdater
 from a2a.types import Message, TaskState, Part, TextPart, DataPart
 from a2a.utils import get_message_text, new_agent_text_message
 
-from messenger import Messenger
-from rooms.client import RoomsEnv
+from .messenger import Messenger
+from rooms.server.rooms_environment import RoomsEnvironment
 from rooms.models import RoomsAction, Command
 import json
+import traceback
 
 
 class EvalRequest(BaseModel):
@@ -75,17 +76,17 @@ class Agent:
         )
 
         # Initialize environment
-        self.env = RoomsEnv(**env_config)
+        self.env = RoomsEnvironment(**env_config)
         
         try:
             # Reset environment and get initial observation
-            result = self.env.reset(encoding=encoding)
-            obs = result.observation
+            obs = self.env.reset(encoding=encoding)
             
             step_count = 0
             conversation_history = []
             total_reward = 0.0
             success = False
+            done = False
             
             # Start new conversation with solver
             self.messenger.reset()
@@ -100,7 +101,7 @@ class Agent:
             )
             
             # Main interaction loop
-            while not obs.done and step_count < max_steps:
+            while not done and step_count < max_steps:
                 # Get action from solver
                 response = await self.messenger.talk_to_agent(
                     message=initial_prompt if step_count == 0 else self._create_prompt(obs, step_count, None),
@@ -124,20 +125,31 @@ class Agent:
                 conversation_history.append({"step": step_count, "action": action.model_dump()})
                 
                 # Execute action in environment
-                result = self.env.step(action)
-                obs = result.observation
-                total_reward += result.reward or 0.0
+                obs = self.env.step(action)
+                
+                step_reward = getattr(obs, 'reward', 0.0)
+                if step_reward is None: step_reward = 0.0
+                total_reward += step_reward
+                
                 step_count += 1
                 
-                conversation_history.append({"step": step_count, "observation": obs.model_dump(), "reward": result.reward})
+                # Check for done flag in the observation object
+                if hasattr(obs, 'done'):
+                    done = obs.done
+                elif hasattr(obs, 'terminated'):
+                    done = obs.terminated
+                
+                conversation_history.append({"step": step_count, "observation": obs.model_dump(), "reward": step_reward})
                 
                 await updater.update_status(
                     TaskState.working,
-                    new_agent_text_message(f"Step {step_count}: Executed {action.command.value}, reward: {result.reward:.2f}")
+                    new_agent_text_message(f"Step {step_count}: Executed {action.command.value}, reward: {step_reward:.2f}")
                 )
                 
-                if obs.done:
-                    success = True
+                if done:
+                    # Determine success (e.g., if total reward is positive, you found the exit)
+                    if total_reward > 0:
+                        success = True
                     break
             
             # Prepare results
@@ -168,6 +180,9 @@ class Agent:
             )
             
         except Exception as e:
+            print(f"❌ Error during benchmark execution: {str(e)}")
+            traceback.print_exc()
+            
             await updater.update_status(
                 TaskState.working,
                 new_agent_text_message(f"Error during benchmark: {str(e)}")
@@ -176,37 +191,64 @@ class Agent:
 
     def _create_prompt(self, obs, step_count: int, previous_action) -> str:
         """Create a prompt for the solver agent based on current observation."""
-        prompt = f"""You are solving a Rooms navigation puzzle. Current state (Step {step_count}):
+        prompt = f"""You are solving a Rooms navigation puzzle. Current state (Move {step_count}):
 
 Current Room: {obs.current_room}
 Phase: {"Observation" if obs.committed == 0 else "Execution"}
 Keys Held: {obs.current_keys}
 Steps Remaining: {obs.steps_remaining}
 
+Room Status (1 means true and 0 means false):
 Rooms Visited: {obs.room_visited}
 Rooms Inspected: {obs.room_inspected}
 
-Room Properties (for inspected rooms, -1 means unknown):
+Room Properties (1 means true and 0 means false for inspected rooms; -1 means unknown):
 - Locked: {obs.room_locked}
 - Has Key: {obs.room_haskey}
 - Is Exit: {obs.room_exit}
 
-Your goal is to reach the exit room and unlock it if necessary.
+You are in a system of up to 8 rooms (indexed 0-7) that are all connected in one graph. Your goal is to find (and if needed, unlock) the exit room and leave.
+On each turn, you can do one of: MOVE, INSPECT, GETKEY, USEKEY, COMMIT.
+MOVE to move into a room that is connected to your current room. In Observation phase, moving into a room automatically performs the INSPECT action in the room you move to, and you can move through locked rooms, but moves are more costly. In Execution phase, you may not MOVE if your current room is locked, unless it is back to a previous room you have visited.
+INSPECT your current room to know which rooms it connects to, if it is locked, and if it contains a key inside.
+GETKEY to pick-up a key in your current room, if it has a key.
+USEKEY to use a key in your current room to unlock it if it was locked.
+COMMIT to change the phase from Observation to Execution. This cannot be undone.
+
+Actions in the Observation phase do not use your remaining steps, but are more costly than actions in the Execution phase. 
+Actions in the Execution phase use one step per action, even if that action fails. If you run out of steps, you fail.
+
+Rules and strategy reminders:
+1. In Observation phase:
+   - You can MOVE to any connected room to explore, and automatically INSPECT that room without further command use.
+   - You cannot GETKEY, USEKEY, INSPECT at any time.
+   - COMMIT switches to Execution phase, and you are reset to your starting room.
+   - Keep track of keys, locked rooms, and exits. This information may go away during Execution phase.
+2. In Execution phase:
+   - You may MOVE to adjacent rooms if your current room is unlocked, or if you are moving into a room you have already visited.
+   - INSPECT the current room if it has not been inspected.
+   - USEKEY to unlock a locked room only if you have a key.
+   - GETKEY to pick up a key in the current room if one exists.
+3. The goal is to reach the exit room and unlock it if necessary.
+4. Avoid unnecessary moves that increase weighted steps used.
 
 Available commands:
-- MOVE <room_number>: Move to an adjacent room
+- MOVE <room_number>: Move to an adjacent room, rooms are numbered 0-7
 - INSPECT: Inspect current room (only in execution phase)
 - USEKEY: Use a key to unlock current room
 - GETKEY: Pick up key in current room
 - COMMIT: Switch from observation to execution phase
 
-Respond with a JSON object containing your action:
+Respond only with a JSON object containing your action, for example:
 {{"command": "MOVE", "target_room": 1}}
 or
 {{"command": "INSPECT"}}
 or
 {{"command": "USEKEY"}}
-etc.
+or
+{{"command": "GETKEY"}}
+or
+{{"command": "COMMIT"}}
 """
         return prompt
 

@@ -3,52 +3,727 @@
   "description": "Rooms navigation benchmark encodings",
   "encodings": {
     "tutorial": {
-      "description": "Simple tutorial levels",
+      "description": "Tutorial difficulty levels",
       "cases": [
         {
           "id": "tutorial_01",
-          "encoding": "0000000000000000000000000",
-          "difficulty": "easy",
-          "optimal_steps": 5,
-          "description": "Empty rooms, no obstacles"
+          "encoding": "0898000006080800000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 3 rooms, 0 locks/keys."
         },
         {
           "id": "tutorial_02",
-          "encoding": "089000000c0c0000000000000",
-          "difficulty": "easy",
-          "optimal_steps": 8,
-          "description": "Basic navigation with one locked door"
-        }
-      ]
-    },
-    "basic": {
-      "description": "Basic difficulty levels",
-      "cases": [
-        {
-          "id": "basic_01",
-          "encoding": "1234567890abcdef123456789",
-          "difficulty": "medium",
-          "optimal_steps": 12,
-          "description": "Multiple locked doors and keys"
+          "encoding": "0898000006080800000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 3 rooms, 0 locks/keys."
         },
         {
-          "id": "basic_02",
-          "encoding": "abcdef1234567890abcdef123",
-          "difficulty": "medium",
-          "optimal_steps": 15,
-          "description": "Complex navigation path"
+          "id": "tutorial_03",
+          "encoding": "0890000004080000000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 2 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_04",
+          "encoding": "0898000006080800000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 3 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_05",
+          "encoding": "0890000004080000000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 2 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_06",
+          "encoding": "0890000004080000000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 2 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_07",
+          "encoding": "28980000040a0400000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 3 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_08",
+          "encoding": "19880000040a0400000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 3 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_09",
+          "encoding": "1980000004080000000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 1,
+          "description": "Tree with 2 rooms, 0 locks/keys."
+        },
+        {
+          "id": "tutorial_10",
+          "encoding": "08890000040a0400000000000",
+          "difficulty": "tutorial",
+          "optimal_steps": 2,
+          "description": "Tree with 3 rooms, 0 locks/keys."
         }
       ]
     },
-    "advanced": {
-      "description": "Advanced difficulty levels",
+    "easy": {
+      "description": "Easy difficulty levels",
       "cases": [
         {
-          "id": "advanced_01",
-          "encoding": "fedcba9876543210fedcba987",
+          "id": "easy_01",
+          "encoding": "389c8a00040a0502810000000",
+          "difficulty": "easy",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_02",
+          "encoding": "2888980007088808040000000",
+          "difficulty": "easy",
+          "optimal_steps": 2,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_03",
+          "encoding": "39888800050a0408810000000",
+          "difficulty": "easy",
+          "optimal_steps": 1,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_04",
+          "encoding": "188b8c0006890804080000000",
+          "difficulty": "easy",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_05",
+          "encoding": "48889800048b0404080000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_06",
+          "encoding": "2898800006080902000000000",
+          "difficulty": "easy",
+          "optimal_steps": 2,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_07",
+          "encoding": "2988880007088808040000000",
+          "difficulty": "easy",
+          "optimal_steps": 1,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_08",
+          "encoding": "3889800006090804000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_09",
+          "encoding": "2888900006090804000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_10",
+          "encoding": "0888900006080902000000000",
+          "difficulty": "easy",
+          "optimal_steps": 2,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_11",
+          "encoding": "089e8000050a0408000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_12",
+          "encoding": "28a8d80006880902080000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_13",
+          "encoding": "39888000050a0408000000000",
+          "difficulty": "easy",
+          "optimal_steps": 1,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_14",
+          "encoding": "2898880007880808080000000",
+          "difficulty": "easy",
+          "optimal_steps": 2,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_15",
+          "encoding": "3c89a000040a0502000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_16",
+          "encoding": "08ac9000050a0408000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 1 locks/keys."
+        },
+        {
+          "id": "easy_17",
+          "encoding": "0888890007088808040000000",
+          "difficulty": "easy",
+          "optimal_steps": 2,
+          "description": "Tree with 5 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_18",
+          "encoding": "0888900007080808000000000",
+          "difficulty": "easy",
+          "optimal_steps": 1,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_19",
+          "encoding": "1888900006080902000000000",
+          "difficulty": "easy",
+          "optimal_steps": 3,
+          "description": "Tree with 4 rooms, 0 locks/keys."
+        },
+        {
+          "id": "easy_20",
+          "encoding": "18ad880007088808040000000",
+          "difficulty": "easy",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        }
+      ]
+    },
+    "medium": {
+      "description": "Medium difficulty levels",
+      "cases": [
+        {
+          "id": "medium_01",
+          "encoding": "0ad8888007080808c10100000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_02",
+          "encoding": "08e9e8800608c902040400000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_03",
+          "encoding": "08bcca80040bc404040400000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_04",
+          "encoding": "1888ad8007c80808080800000",
+          "difficulty": "medium",
+          "optimal_steps": 4,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_05",
+          "encoding": "198ac800048a0502080000000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_06",
+          "encoding": "18ac898006080942810200000",
+          "difficulty": "medium",
+          "optimal_steps": 6,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_07",
+          "encoding": "1c898a00048b0404080000000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_08",
+          "encoding": "188ecb0007088808040000000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 5 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_09",
+          "encoding": "5a88de80040a05c2020200000",
+          "difficulty": "medium",
+          "optimal_steps": 6,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_10",
+          "encoding": "2898e800050a8408040000000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_11",
+          "encoding": "1888d8a006480902810800000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_12",
+          "encoding": "289ac80006080982020000000",
+          "difficulty": "medium",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_13",
+          "encoding": "58b8cca006090844810200000",
+          "difficulty": "medium",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_14",
+          "encoding": "1a88d88006080902814080000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_15",
+          "encoding": "2ac8988006884902080400000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_16",
+          "encoding": "48c9a88006880902480100000",
+          "difficulty": "medium",
+          "optimal_steps": 4,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_17",
+          "encoding": "5988cea0048b0404480100000",
+          "difficulty": "medium",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_18",
+          "encoding": "08988e00050a0488020000000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_19",
+          "encoding": "08adac0006890804080000000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 5 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_20",
+          "encoding": "0a8e9c00040a8502040000000",
+          "difficulty": "medium",
+          "optimal_steps": 7,
+          "description": "Tree with 5 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_21",
+          "encoding": "48ac889007884808080400000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_22",
+          "encoding": "2c9ae80007080888020000000",
+          "difficulty": "medium",
+          "optimal_steps": 6,
+          "description": "Tree with 5 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_23",
+          "encoding": "188ad800040a0582020000000",
+          "difficulty": "medium",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_24",
+          "encoding": "2e8a8d8007084808810400000",
+          "difficulty": "medium",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_25",
+          "encoding": "0a988c80060809c2020200000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_26",
+          "encoding": "38a98c0007080808810000000",
+          "difficulty": "medium",
+          "optimal_steps": 4,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_27",
+          "encoding": "488a98c007088808044080000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_28",
+          "encoding": "5a9cc8a007880808480100000",
+          "difficulty": "medium",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "medium_29",
+          "encoding": "29a88c0006090884020000000",
+          "difficulty": "medium",
+          "optimal_steps": 3,
+          "description": "Tree with 5 rooms, 1 locks/keys."
+        },
+        {
+          "id": "medium_30",
+          "encoding": "58bcca8006084902810400000",
+          "difficulty": "medium",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        }
+      ]
+    },
+    "hard": {
+      "description": "Hard difficulty levels",
+      "cases": [
+        {
+          "id": "hard_01",
+          "encoding": "289aa8cc050a0448812200800",
           "difficulty": "hard",
-          "optimal_steps": 20,
-          "description": "Multiple keys and locked sequences"
+          "optimal_steps": 5,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_02",
+          "encoding": "1c8c8ab80629c804040408000",
+          "difficulty": "hard",
+          "optimal_steps": 5,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_03",
+          "encoding": "38edaac0050a0408c10100000",
+          "difficulty": "hard",
+          "optimal_steps": 9,
+          "description": "Tree with 6 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_04",
+          "encoding": "5ec8a9ac050a0428c10102000",
+          "difficulty": "hard",
+          "optimal_steps": 8,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_05",
+          "encoding": "388eacad060948a4020402000",
+          "difficulty": "hard",
+          "optimal_steps": 10,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_06",
+          "encoding": "5ada8c8007880808480100000",
+          "difficulty": "hard",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_07",
+          "encoding": "48afcac0048b0404480100000",
+          "difficulty": "hard",
+          "optimal_steps": 9,
+          "description": "Tree with 6 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_08",
+          "encoding": "1ca89ace048b0444082200800",
+          "difficulty": "hard",
+          "optimal_steps": 7,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_09",
+          "encoding": "08a9c8ac040b4484022400800",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_10",
+          "encoding": "38a98cac040bc404240401000",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_11",
+          "encoding": "2d8aca80040a05c2020200000",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_12",
+          "encoding": "08ae8fc006490804810800000",
+          "difficulty": "hard",
+          "optimal_steps": 9,
+          "description": "Tree with 6 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_13",
+          "encoding": "0a88acd807088808442100800",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_14",
+          "encoding": "5caac88907088828044082000",
+          "difficulty": "hard",
+          "optimal_steps": 9,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_15",
+          "encoding": "1faac8c0040a4502810400000",
+          "difficulty": "hard",
+          "optimal_steps": 7,
+          "description": "Tree with 6 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_16",
+          "encoding": "3e8889e007080808c10100000",
+          "difficulty": "hard",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_17",
+          "encoding": "28e8aacd06894804080420400",
+          "difficulty": "hard",
+          "optimal_steps": 10,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_18",
+          "encoding": "0aada8cc07680808810808000",
+          "difficulty": "hard",
+          "optimal_steps": 7,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_19",
+          "encoding": "4888dae007080808814080000",
+          "difficulty": "hard",
+          "optimal_steps": 5,
+          "description": "Tree with 6 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_20",
+          "encoding": "58e8ca89046b0404810808000",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_21",
+          "encoding": "38cea898040a2542810204000",
+          "difficulty": "hard",
+          "optimal_steps": 6,
+          "description": "Tree with 7 rooms, 2 locks/keys."
+        },
+        {
+          "id": "hard_22",
+          "encoding": "2cb88eac050a04880240a0400",
+          "difficulty": "hard",
+          "optimal_steps": 7,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_23",
+          "encoding": "1aaccca906c90804280801000",
+          "difficulty": "hard",
+          "optimal_steps": 8,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_24",
+          "encoding": "1ead8ca006088902044080000",
+          "difficulty": "hard",
+          "optimal_steps": 8,
+          "description": "Tree with 6 rooms, 3 locks/keys."
+        },
+        {
+          "id": "hard_25",
+          "encoding": "39c88eea06880902480120400",
+          "difficulty": "hard",
+          "optimal_steps": 8,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        }
+      ]
+    },
+    "very_hard": {
+      "description": "Very_hard difficulty levels",
+      "cases": [
+        {
+          "id": "very_hard_01",
+          "encoding": "5e8d8c8aa6490824810812004",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_02",
+          "encoding": "38ccabac040a0582422100800",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_03",
+          "encoding": "5cccfaaa86080902e10111004",
+          "difficulty": "very_hard",
+          "optimal_steps": 9,
+          "description": "Tree with 8 rooms, 4 locks/keys."
+        },
+        {
+          "id": "very_hard_04",
+          "encoding": "2e8ac8cb06c80902280801000",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_05",
+          "encoding": "2fa8acce06080982224081000",
+          "difficulty": "very_hard",
+          "optimal_steps": 9,
+          "description": "Tree with 7 rooms, 4 locks/keys."
+        },
+        {
+          "id": "very_hard_06",
+          "encoding": "289acc8ea7980828480102080",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_07",
+          "encoding": "59ee8a8c850aa408441104008",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_08",
+          "encoding": "2ceafca806680902810808000",
+          "difficulty": "very_hard",
+          "optimal_steps": 9,
+          "description": "Tree with 7 rooms, 4 locks/keys."
+        },
+        {
+          "id": "very_hard_09",
+          "encoding": "1c89cae8a7083888024084040",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_10",
+          "encoding": "08dee88a06698804040808000",
+          "difficulty": "very_hard",
+          "optimal_steps": 7,
+          "description": "Tree with 7 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_11",
+          "encoding": "1e8898eac41b2484024084080",
+          "difficulty": "very_hard",
+          "optimal_steps": 7,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_12",
+          "encoding": "28a8caadc60908148140a0420",
+          "difficulty": "very_hard",
+          "optimal_steps": 12,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_13",
+          "encoding": "588c8faac40a0522c10112004",
+          "difficulty": "very_hard",
+          "optimal_steps": 8,
+          "description": "Tree with 8 rooms, 3 locks/keys."
+        },
+        {
+          "id": "very_hard_14",
+          "encoding": "7ceb8c8ea7688818040808020",
+          "difficulty": "very_hard",
+          "optimal_steps": 9,
+          "description": "Tree with 8 rooms, 4 locks/keys."
+        },
+        {
+          "id": "very_hard_15",
+          "encoding": "4fa88acc858a0438480102020",
+          "difficulty": "very_hard",
+          "optimal_steps": 7,
+          "description": "Tree with 8 rooms, 3 locks/keys."
         }
       ]
     }
