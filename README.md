@@ -59,10 +59,7 @@ Run A2A conformance tests against your agent.
 # Install test dependencies
 uv sync --extra test
 
-# Start your agent (uv or docker; see above)
-
-# Run tests against your running agent URL
-uv run pytest --agent-url http://localhost:9009
+uv run pytest tests/test_agent.py -v --start-server
 ```
 
 ## Publishing

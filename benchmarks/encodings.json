@@ -1,0 +1,56 @@
+{
+  "version": "1.0.0",
+  "description": "Rooms navigation benchmark encodings",
+  "encodings": {
+    "tutorial": {
+      "description": "Simple tutorial levels",
+      "cases": [
+        {
+          "id": "tutorial_01",
+          "encoding": "0000000000000000000000000",
+          "difficulty": "easy",
+          "optimal_steps": 5,
+          "description": "Empty rooms, no obstacles"
+        },
+        {
+          "id": "tutorial_02",
+          "encoding": "089000000c0c0000000000000",
+          "difficulty": "easy",
+          "optimal_steps": 8,
+          "description": "Basic navigation with one locked door"
+        }
+      ]
+    },
+    "basic": {
+      "description": "Basic difficulty levels",
+      "cases": [
+        {
+          "id": "basic_01",
+          "encoding": "1234567890abcdef123456789",
+          "difficulty": "medium",
+          "optimal_steps": 12,
+          "description": "Multiple locked doors and keys"
+        },
+        {
+          "id": "basic_02",
+          "encoding": "abcdef1234567890abcdef123",
+          "difficulty": "medium",
+          "optimal_steps": 15,
+          "description": "Complex navigation path"
+        }
+      ]
+    },
+    "advanced": {
+      "description": "Advanced difficulty levels",
+      "cases": [
+        {
+          "id": "advanced_01",
+          "encoding": "fedcba9876543210fedcba987",
+          "difficulty": "hard",
+          "optimal_steps": 20,
+          "description": "Multiple keys and locked sequences"
+        }
+      ]
+    }
+  }
+}
