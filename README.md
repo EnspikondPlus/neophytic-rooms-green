@@ -6,21 +6,22 @@ A green agent for the AgentBeats competition built on the template for building 
 
 ```
 src/
+└─ benchmarks/
+   ├─ room_gen.py                # Room system generation script with CLI support
+   └─ standard_systems.json      # A set of 200 standardized systems for benchmarking
 ├─ server.py                  # Server setup and agent card configuration
 ├─ executor.py                # A2A request handling
 ├─ agent.py                   # Agent implementation
 └─ messenger.py               # A2A messaging utilities
-benchmarks/
-├─ room_gen.py                # Room system generation script with CLI support
-└─ standard_systems.json      # A set of 200 standardized systems for benchmarking
 rooms/
 └─ server/
    ├─ environment_logic.py    # Helper for environment functionality
    └─ rooms_environment.py    # OpenEnv environment manager
 ├─ client.py                  # OpenEnv client manager
-└─ models.                    # OpenEnv data class manager
+└─ models.py                  # OpenEnv data class manager
 tests/
 └─ test_agent.py              # Agent tests
+viz.py                        # Visualization utility
 Dockerfile                    # Docker configuration
 pyproject.toml                # Python dependencies
 .github/
