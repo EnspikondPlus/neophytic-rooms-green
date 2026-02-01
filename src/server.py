@@ -15,24 +15,22 @@ from .executor import Executor
 
 def main():
     parser = argparse.ArgumentParser(description="Run the A2A agent.")
-    parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to bind the server")
-    parser.add_argument("--port", type=int, default=9009, help="Port to bind the server")
-    parser.add_argument("--card-url", type=str, help="URL to advertise in the agent card")
+    parser.add_argument("--host", type=str, default="127.0.0.1", help="Host to bind the server.")
+    parser.add_argument("--port", type=int, default=9009, help="Port to bind the server.")
+    parser.add_argument("--card-url", type=str, help="URL to advertise in the agent card.")
     args = parser.parse_args()
 
     skill = AgentSkill(
-        id="rooms_benchmark",
-        name="Rooms Navigation Benchmark",
-        description="Evaluate an agent's ability to navigate a locked room puzzle",
+        id="neophytic_rooms_green",
+        name="Neophytic Rooms Green",
+        description="Benchmark to evaluate an agent's ability to navigate a system of rooms to find the exit.",
         tags=["benchmark", "navigation", "planning"],
-        examples=[
-            "Evaluate agent on rooms puzzle with encoding 0000000000000000000000000"
-        ]
+        examples=[]
     )
 
     agent_card = AgentCard(
-        name="Rooms Benchmark Proctor",
-        description="A green agent that proctors the Rooms navigation benchmark for A2A compatible agents",
+        name="Neophytic Rooms Green",
+        description="A green agent that proctors the Neophytic Rooms navigation benchmark for A2A compatible agents.",
         url=args.card_url or f"http://{args.host}:{args.port}/",
         version='1.0.0',
         default_input_modes=['text'],

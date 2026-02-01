@@ -9,19 +9,20 @@ from rooms.server.rooms_environment import RoomsEnvironment
 from rooms.models import RoomsAction, Command
 import json
 import traceback
-
+import random
+from benchmarks.room_gen import generate_random_system
 
 class EvalRequest(BaseModel):
     """Request format sent by the AgentBeats platform to green agents."""
-    participants: dict[str, HttpUrl]  # role -> agent URL
+    participants: dict[str, HttpUrl]
     config: dict[str, Any]
 
 
 class Agent:
-    # One participant: the agent being evaluated
+    # Single participant: agent being evaluated
     required_roles: list[str] = ["solver"]
-    # Required config: the room encoding
-    required_config_keys: list[str] = ["encoding"]
+    # Required config: look at README for detailed explanation
+    required_config_keys: list[str] = ["generate", "count"]
 
     def __init__(self):
         self.messenger = Messenger()
@@ -35,11 +36,6 @@ class Agent:
         missing_config_keys = set(self.required_config_keys) - set(request.config.keys())
         if missing_config_keys:
             return False, f"Missing config keys: {missing_config_keys}"
-
-        # Validate encoding format
-        encoding = request.config.get("encoding", "")
-        if not isinstance(encoding, str) or len(encoding) != 25:
-            return False, "Encoding must be a 25-character hex string"
 
         return True, "ok"
 
@@ -58,138 +54,260 @@ class Agent:
             return
 
         solver_url = str(request.participants["solver"])
-        encoding = request.config["encoding"]
-        max_steps = request.config.get("max_steps", 50)
-        
+        generate = bool(request.config["generate"])
+        count = int(request.config["count"])
+        difficulty = request.config.get("difficulty", "random")
+        no_loops = bool(request.config.get("no_loops", False))
+
+        room_systems = self._queue_runs(generate, count, difficulty, no_loops)
+
         # Optional environment parameters
         env_config = {
-            "steps_remaining": request.config.get("steps_remaining", 30),
+            "actions_remaining": request.config.get("actions_remaining", 30),
             "obs_inspect_weight": request.config.get("obs_inspect_weight", 3.0),
             "failure_show": request.config.get("failure_show", True),
-            "failure_consequence": request.config.get("failure_consequence", False),
-            "commit_reset": request.config.get("commit_reset", False),
+            "failure_consequence": request.config.get("failure_consequence", 0.0),
+            "commit_reset": request.config.get("commit_reset", True),
         }
+        max_steps = env_config["actions_remaining"]
 
         await updater.update_status(
-            TaskState.working, 
-            new_agent_text_message(f"Starting Rooms benchmark with encoding {encoding}")
+            TaskState.working,
+            new_agent_text_message(f"Running {len(room_systems)} room systems. Good luck!")
         )
 
-        # Initialize environment
-        self.env = RoomsEnvironment(**env_config)
-        
-        try:
-            # Reset environment and get initial observation
-            obs = self.env.reset(encoding=encoding)
-            
-            step_count = 0
-            conversation_history = []
-            total_reward = 0.0
-            success = False
-            done = False
-            
-            # Start new conversation with solver
-            self.messenger.reset()
-            
-            # Initial prompt to the solver
-            initial_prompt = self._create_prompt(obs, step_count, None)
-            conversation_history.append({"step": step_count, "observation": obs.model_dump(), "prompt": initial_prompt})
-            
+        all_run_results: list[dict] = []
+
+        for run_index, run in enumerate(room_systems):
             await updater.update_status(
                 TaskState.working,
-                new_agent_text_message(f"Step {step_count}: Sending initial observation to solver")
+                new_agent_text_message(f"[{run_index + 1}/{len(room_systems)}] Starting run with encoding {run['encoding']}")
             )
-            
-            # Main interaction loop
-            while not done and step_count < max_steps:
-                # Get action from solver
-                response = await self.messenger.talk_to_agent(
-                    message=initial_prompt if step_count == 0 else self._create_prompt(obs, step_count, None),
-                    url=solver_url,
-                    new_conversation=(step_count == 0),
-                    timeout=60
-                )
-                
-                conversation_history.append({"step": step_count, "solver_response": response})
-                
-                # Parse action from solver's response
-                action = self._parse_action(response)
-                
-                if action is None:
-                    await updater.update_status(
-                        TaskState.working,
-                        new_agent_text_message(f"Step {step_count}: Failed to parse action from solver")
-                    )
-                    break
-                
-                conversation_history.append({"step": step_count, "action": action.model_dump()})
-                
-                # Execute action in environment
-                obs = self.env.step(action)
-                
-                step_reward = getattr(obs, 'reward', 0.0)
-                if step_reward is None: step_reward = 0.0
-                total_reward += step_reward
-                
-                step_count += 1
-                
-                # Check for done flag in the observation object
-                if hasattr(obs, 'done'):
-                    done = obs.done
-                elif hasattr(obs, 'terminated'):
-                    done = obs.terminated
-                
-                conversation_history.append({"step": step_count, "observation": obs.model_dump(), "reward": step_reward})
-                
+
+            self.env = RoomsEnvironment(**env_config)
+            try:
+                obs = self.env.reset(encoding=run["encoding"])
+                step_count = 0
+                conversation_history = []
+                weighted_loss = 0.0
+                success = False
+                done = False
+
+                self.messenger.reset()
+
+                # Initial prompt to the solver
+                initial_prompt = self._create_prompt(obs, step_count)
+                conversation_history.append({"step": step_count, "observation": obs.model_dump(), "prompt": initial_prompt})
+
                 await updater.update_status(
                     TaskState.working,
-                    new_agent_text_message(f"Step {step_count}: Executed {action.command.value}, reward: {step_reward:.2f}")
+                    new_agent_text_message(f"[{run_index + 1}/{len(room_systems)}] Step {step_count}: Sending initial observation to solver")
                 )
-                
-                if done:
-                    # Determine success (e.g., if total reward is positive, you found the exit)
-                    if total_reward > 0:
-                        success = True
-                    break
-            
-            # Prepare results
-            results = {
-                "success": success,
-                "total_reward": total_reward,
-                "steps_taken": step_count,
-                "max_steps": max_steps,
-                "encoding": encoding,
-                "final_observation": obs.model_dump(),
-                "conversation_history": conversation_history,
-            }
-            
-            summary = (
-                f"Benchmark completed!\n"
-                f"Success: {success}\n"
-                f"Total Reward: {total_reward:.2f}\n"
-                f"Steps Taken: {step_count}/{max_steps}\n"
-                f"Final State: {'Exit reached' if success else 'Failed or timeout'}"
-            )
-            
-            await updater.add_artifact(
-                parts=[
-                    Part(root=TextPart(text=summary)),
-                    Part(root=DataPart(data=results))
-                ],
-                name="Rooms Benchmark Result",
-            )
-            
-        except Exception as e:
-            print(f"❌ Error during benchmark execution: {str(e)}")
-            traceback.print_exc()
-            
-            await updater.update_status(
-                TaskState.working,
-                new_agent_text_message(f"Error during benchmark: {str(e)}")
-            )
-            raise
 
-    def _create_prompt(self, obs, step_count: int, previous_action) -> str:
+                # Main interaction loop
+                while not done:
+                    # Get action from solver
+                    response = await self.messenger.talk_to_agent(
+                        message=initial_prompt if step_count == 0 else self._create_prompt(obs, step_count),
+                        url=solver_url,
+                        new_conversation=(step_count == 0),
+                        timeout=60
+                    )
+
+                    conversation_history.append({"step": step_count, "solver_response": response})
+
+                    # Parse action from solver's response
+                    action = self._parse_action(response)
+
+                    if action is None:
+                        await updater.update_status(
+                            TaskState.working,
+                            new_agent_text_message(f"[{run_index + 1}/{len(room_systems)}] Step {step_count}: Failed to parse action from solver — aborting this run")
+                        )
+                        break
+
+                    conversation_history.append({"step": step_count, "action": action.model_dump()})
+
+                    # Execute action in environment
+                    obs = self.env.step(action)
+
+                    step_reward = getattr(obs, 'reward', 0.0)
+                    if step_reward is None:
+                        step_reward = 0.0
+                    weighted_loss = step_reward
+
+                    step_count += 1
+
+                    # Check for done flag in the observation object
+                    if hasattr(obs, 'done'):
+                        done = obs.done
+
+                    conversation_history.append({"step": step_count, "observation": obs.model_dump(), "loss": weighted_loss})
+
+                    await updater.update_status(
+                        TaskState.working,
+                        new_agent_text_message(f"[{run_index + 1}/{len(room_systems)}] Step {step_count}: Executed {action.command.value}, loss: {weighted_loss:.2f}")
+                    )
+
+                    if done:
+                        success = obs.success if hasattr(obs, 'success') else False
+                        break
+
+                # Store this run's result
+                all_run_results.append({
+                    "run_index": run_index,
+                    "success": success,
+                    "total_loss": weighted_loss,
+                    "steps_taken": step_count,
+                    "max_steps": max_steps,
+                    "encoding": run["encoding"],
+                    "final_observation": obs.model_dump(),
+                    "conversation_history": conversation_history,
+                })
+
+            except Exception as e:
+                # Log the error but do not raise
+                print(f"❌ Error during run {run_index + 1}: {str(e)}")
+                traceback.print_exc()
+
+                await updater.update_status(
+                    TaskState.working,
+                    new_agent_text_message(f"[{run_index + 1}/{len(room_systems)}] Error: {str(e)} — continuing to next run")
+                )
+
+                all_run_results.append({
+                    "run_index": run_index,
+                    "success": False,
+                    "total_loss": None,
+                    "steps_taken": None,
+                    "max_steps": max_steps,
+                    "encoding": run["encoding"],
+                    "error": str(e),
+                })
+
+        # All runs complete, output full summary
+        total_runs = len(all_run_results)
+        successful_runs = [r for r in all_run_results if r["success"]]
+        errored_runs = [r for r in all_run_results if "error" in r]
+        completed_runs = [r for r in all_run_results if r["total_loss"] is not None]
+
+        success_rate = len(successful_runs) / total_runs if total_runs > 0 else 0.0
+        avg_loss = (
+            sum(r["total_loss"] for r in completed_runs) / len(completed_runs)
+            if completed_runs else None
+        )
+        avg_steps = (
+            sum(r["steps_taken"] for r in completed_runs) / len(completed_runs)
+            if completed_runs else None
+        )
+
+        # Per-run summaries
+        per_run_lines = []
+        for r in all_run_results:
+            if "error" in r:
+                per_run_lines.append(
+                    f"  Run {r['run_index'] + 1}: ERROR — {r['error']}"
+                )
+            else:
+                status = "✅ Success" if r["success"] else "❌ Failed"
+                per_run_lines.append(
+                    f"  Run {r['run_index'] + 1}: {status} | "
+                    f"Loss: {r['total_loss']:.2f} | "
+                    f"Steps: {r['steps_taken']}/{r['max_steps']}"
+                )
+
+        summary = (
+            f"========== Rooms Benchmark — Full Summary ==========\n\n"
+            f"Per-Run Results:\n"
+            + "\n".join(per_run_lines) + "\n\n"
+            f"----------------------------------------------------\n"
+            f"Aggregate Statistics:\n"
+            f"  Total Runs:      {total_runs}\n"
+            f"  Successful:      {len(successful_runs)}\n"
+            f"  Failed:          {total_runs - len(successful_runs) - len(errored_runs)}\n"
+            f"  Errored:         {len(errored_runs)}\n"
+            f"  Success Rate:    {success_rate:.1%}\n"
+            f"  Avg Loss:        {f'{avg_loss:.2f}' if avg_loss is not None else 'N/A'}\n"
+            f"  Avg Steps Used:  {f'{avg_steps:.1f}' if avg_steps is not None else 'N/A'}\n"
+            f"===================================================="
+        )
+
+        aggregate = {
+            "total_runs": total_runs,
+            "successful_runs": len(successful_runs),
+            "errored_runs": len(errored_runs),
+            "success_rate": success_rate,
+            "avg_loss": avg_loss,
+            "avg_steps": avg_steps,
+            "max_steps": max_steps,
+            "per_run_results": all_run_results,
+        }
+
+        await updater.add_artifact(
+            parts=[
+                Part(root=TextPart(text=summary)),
+                Part(root=DataPart(data=aggregate))
+            ],
+            name="Rooms Benchmark — Full Summary",
+        )
+
+    def _queue_runs(self, generate: bool, count: int, difficulty: str, no_loops: bool):
+        difficulties = {
+            "tutorial":  {"rooms": (2, 3), "locks": (0, 0), "softlock": False},
+            "easy":      {"rooms": (4, 5), "locks": (0, 1), "softlock": False},
+            "medium":    {"rooms": (5, 6), "locks": (1, 2), "softlock": True},
+            "hard":      {"rooms": (6, 7), "locks": (2, 3), "softlock": True},
+            "very_hard": {"rooms": (7, 8), "locks": (3, 4), "softlock": True},
+        }
+        real_difficulty = difficulty
+        cases = []
+        if generate:
+            for i in range(count):
+                if real_difficulty == "random":
+                    # BUG FIX: random.choice on .values() requires a list
+                    difficulty = random.choice(list(difficulties.keys()))
+                config = difficulties[difficulty]
+                sys_data = generate_random_system(
+                    difficulty_settings=config,
+                    graph_mode="general",
+                    no_loops=no_loops,
+                    require_softlock=config["softlock"]
+                )
+                case = {
+                    "id": f"generated_{i}",
+                    "encoding": sys_data["encoding"],
+                    "difficulty": difficulty,
+                    "optimal_steps": sys_data["optimal_steps"],
+                    "description": sys_data["description"],
+                    "graph_mode": sys_data["graph_mode"],
+                    "has_cycles": sys_data["has_cycles"],
+                    "softlock_possible": sys_data["softlock_possible"],
+                }
+                cases.append(case)
+        else:
+            # BUG FIX: json.loads() expects a string, not a file object — use .read()
+            with open('/benchmarks/standard_systems.json') as jsonfile:
+                data = json.loads(jsonfile.read())
+            total_tests = {}
+            all_cases = []
+            for category in data.keys():
+                # BUG FIX: data is a plain dict from JSON, use [] not .cases
+                total_tests[category] = len(data[category]["cases"])
+                all_cases = all_cases + data[category]["cases"]
+            total_tests["total"] = sum(total_tests.values())
+            if difficulty == "random":
+                count = min(count, 100)
+                count = max(count, 0)
+                cases = random.sample(all_cases, count)
+            else:
+                count = min(count, total_tests[difficulty])
+                count = max(count, 0)
+                # BUG FIX: use the correct variable `difficulty`, not the loop var `category`
+                cases = random.sample(data[difficulty]["cases"], count)
+        return cases
+
+
+    def _create_prompt(self, obs, step_count: int) -> str:
         """Create a prompt for the solver agent based on current observation."""
         prompt = f"""You are solving a Rooms navigation puzzle. Current state (Move {step_count}):
 
@@ -255,10 +373,7 @@ or
     def _parse_action(self, response: str) -> RoomsAction | None:
         """Parse the solver's response into a RoomsAction."""
         try:
-            # Try to extract JSON from response
             response = response.strip()
-            
-            # Find JSON in the response
             start = response.find('{')
             end = response.rfind('}') + 1
             
@@ -270,7 +385,6 @@ or
             
             command_str = action_data.get("command", "").upper()
             
-            # Map command string to enum
             try:
                 command = Command[command_str]
             except KeyError:

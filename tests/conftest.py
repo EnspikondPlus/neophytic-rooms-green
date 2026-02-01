@@ -27,7 +27,6 @@ def agent_server(request):
         yield None
         return
     
-    # Start the server
     project_root = Path(__file__).parent.parent
     server_script = project_root / "src" / "server.py"
     
@@ -38,12 +37,10 @@ def agent_server(request):
         stderr=subprocess.PIPE,
     )
     
-    # Wait for server to start
     time.sleep(3)
     
     yield process
     
-    # Cleanup
     print("\n🛑 Stopping green agent server...")
     process.terminate()
     process.wait(timeout=5)
@@ -54,7 +51,6 @@ def agent(request, agent_server):
     """Green agent URL fixture. Green agent must be running before tests start."""
     url = request.config.getoption("--agent-url")
     
-    # Wait a bit more if we just started the server
     if agent_server:
         time.sleep(2)
     

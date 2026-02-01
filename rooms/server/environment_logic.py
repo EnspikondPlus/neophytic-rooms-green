@@ -11,29 +11,22 @@ def encode_room_system(
     """
     Encode 8-room system into a fixed 100-bit hex string (25 hex chars).
     """
-
     if not (0 <= start_room <= 7):
         raise ValueError("start_room must be in [0, 7]")
-
     bits = ""
 
-    # Start room (4 bits)
+    # Start room --> 4 bits total
     bits += format(start_room, "04b")
-
-    # Room metadata (8 rooms × 4 bits)
+    # Room metadata --> 8 rooms, 4 bits each, 32 bits total
     for i in range(8):
         bits += f"{room_included[i]}{room_locked[i]}{room_haskey[i]}{room_exit[i]}"
-
-    # Connections (8×8)
+    # Connections --> 64 bits
     for i in range(8):
         for j in range(8):
             bits += str(room_connections[i][j])
 
-    # Sanity check
     assert len(bits) == 100, f"Expected 100 bits, got {len(bits)}"
-
-    # Convert to hex (25 chars)
-    return hex(int(bits, 2))[2:].zfill(25)
+    return hex(int(bits, 2))[2:].zfill(25)      # expected 25 hex chars out
 
 
 def decode_room_system(hex_str):
@@ -42,24 +35,19 @@ def decode_room_system(hex_str):
     """
 
     if len(hex_str) != 25:
-        raise ValueError(
-            f"Encoding must be exactly 25 hex characters (100 bits), got {len(hex_str)}"
-        )
-
+        raise ValueError(f"Expected 25 hex characters, got {len(hex_str)}")
     bits = bin(int(hex_str, 16))[2:].zfill(100)
-
     idx = 0
 
-    # Start room (4 bits)
+    # Start room
     current_room = int(bits[idx:idx+4], 2)
     idx += 4
 
+    # Room system layout
     room_included = []
     room_locked = []
     room_haskey = []
     room_exit = []
-
-    # Room metadata
     for _ in range(8):
         room_included.append(int(bits[idx]))
         room_locked.append(int(bits[idx+1]))
@@ -75,8 +63,6 @@ def decode_room_system(hex_str):
             row.append(int(bits[idx]))
             idx += 1
         room_connections.append(row)
-
-    assert idx == 100, f"Decoder misalignment: ended at bit {idx}"
 
     return {
         "current_room": current_room,
@@ -96,6 +82,7 @@ def build_observation(state: RoomsState) -> RoomsObservation :
     return RoomsObservation(
         current_room=state.current_room,
         committed=state.committed,
+        failure_last=state.failure_last if state.failure_show else -1,
         room_visited=state.room_visited,
         room_inspected=state.room_inspected,
         room_known_connects=room_known_connects,
@@ -104,6 +91,5 @@ def build_observation(state: RoomsState) -> RoomsObservation :
         room_exit=[state.room_exit[i] if state.room_inspected[i] == 1 else -1 for i in range(8)],
         current_keys=state.current_keys,
         steps_remaining=state.steps_remaining,
-        obs_inspect_weight=state.obs_inspect_weight,
-        failure_last=state.failure_last if state.failure_show else -1
+        obs_inspect_weight=state.obs_inspect_weight
     )

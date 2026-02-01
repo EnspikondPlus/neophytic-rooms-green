@@ -1,0 +1,2037 @@
+{
+  "tutorial": {
+    "description": "Tutorial difficulty levels",
+    "graph_mode": "random_tree",
+    "no_loops": false,
+    "cases": [
+      {
+        "id": "tutorial_01",
+        "encoding": "0898000006080800000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_02",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_03",
+        "encoding": "1980000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_04",
+        "encoding": "18890000040a0400000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_05",
+        "encoding": "29880000040a0400000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 2,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_06",
+        "encoding": "1980000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_07",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_08",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_09",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_10",
+        "encoding": "2898000006080800000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 2,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_11",
+        "encoding": "1988000006080800000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_12",
+        "encoding": "1980000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_13",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_14",
+        "encoding": "0890000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_15",
+        "encoding": "29880000040a0400000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 2,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_16",
+        "encoding": "1980000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_17",
+        "encoding": "0889000006080800000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_18",
+        "encoding": "1980000004080000000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 2 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_19",
+        "encoding": "08890000040a0400000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 2,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "tutorial_20",
+        "encoding": "2988000006080800000000000",
+        "difficulty": "tutorial",
+        "optimal_steps": 1,
+        "description": "Random Tree with 3 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      }
+    ]
+  },
+  "easy": {
+    "description": "Easy difficulty levels",
+    "graph_mode": "random_tree",
+    "no_loops": false,
+    "cases": [
+      {
+        "id": "easy_01",
+        "encoding": "1988880006088902040000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_02",
+        "encoding": "3889800006080902000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_03",
+        "encoding": "28889800040b0404810000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_04",
+        "encoding": "1b8c800007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_05",
+        "encoding": "38ad8000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 5,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_06",
+        "encoding": "0889800006080902000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_07",
+        "encoding": "1889800006080902000000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_08",
+        "encoding": "18a8d000040a0502000000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_09",
+        "encoding": "3898800006090804000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_10",
+        "encoding": "18a98c0006880902080000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_11",
+        "encoding": "2ca88900050a0408810000000",
+        "difficulty": "easy",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_12",
+        "encoding": "0889800006090804000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_13",
+        "encoding": "18898800048b0404080000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_14",
+        "encoding": "0a89c000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_15",
+        "encoding": "2988880006880902080000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_16",
+        "encoding": "48988800050a0408810000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_17",
+        "encoding": "38c9a800048a0502080000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_18",
+        "encoding": "39888000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_19",
+        "encoding": "0889800006090804000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_20",
+        "encoding": "19a8c000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_21",
+        "encoding": "48988800050a0408810000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_22",
+        "encoding": "19888000040a0502000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_23",
+        "encoding": "0a89c00007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_24",
+        "encoding": "18ad8000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_25",
+        "encoding": "0889800007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_26",
+        "encoding": "08988800040b0484020000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_27",
+        "encoding": "38c9a000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 5,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_28",
+        "encoding": "2888900006090804000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_29",
+        "encoding": "49888800040a0502810000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_30",
+        "encoding": "28da8000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_31",
+        "encoding": "1ca98800040a0502810000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_32",
+        "encoding": "28a88d00040a0502810000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_33",
+        "encoding": "1888900007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_34",
+        "encoding": "0888900006080902000000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_35",
+        "encoding": "19ac8800050a0488020000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_36",
+        "encoding": "2898880007080808810000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_37",
+        "encoding": "1b8c8000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_38",
+        "encoding": "2ac89000040a0502000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_39",
+        "encoding": "08888900040b0484020000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_40",
+        "encoding": "29888800050a8408040000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_41",
+        "encoding": "388da000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 5,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_42",
+        "encoding": "19888800040a0582020000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_43",
+        "encoding": "08988000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_44",
+        "encoding": "19ac800006080902000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_45",
+        "encoding": "1da88000040a0502000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_46",
+        "encoding": "39888000050a0408000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_47",
+        "encoding": "3898800007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_48",
+        "encoding": "089c8a00050a0408810000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_49",
+        "encoding": "29888000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_50",
+        "encoding": "19888000040a0502000000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 4 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_51",
+        "encoding": "3888890006080982020000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_52",
+        "encoding": "38a98c00050a0408810000000",
+        "difficulty": "easy",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_53",
+        "encoding": "19a8c000040b0404000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_54",
+        "encoding": "28a89c00058a0408080000000",
+        "difficulty": "easy",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_55",
+        "encoding": "4ac89800040a0582020000000",
+        "difficulty": "easy",
+        "optimal_steps": 4,
+        "description": "Random Tree with 5 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_56",
+        "encoding": "08da800007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_57",
+        "encoding": "29888800048b0404080000000",
+        "difficulty": "easy",
+        "optimal_steps": 2,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_58",
+        "encoding": "1b88c00007080808000000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 4 rooms, 1 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_59",
+        "encoding": "39888800058a0408080000000",
+        "difficulty": "easy",
+        "optimal_steps": 1,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      },
+      {
+        "id": "easy_60",
+        "encoding": "1888890006080982020000000",
+        "difficulty": "easy",
+        "optimal_steps": 3,
+        "description": "Random Tree with 5 rooms, 0 lock(s)/key(s)",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": false
+      }
+    ]
+  },
+  "medium": {
+    "description": "Medium difficulty levels",
+    "graph_mode": "random_tree",
+    "no_loops": false,
+    "cases": [
+      {
+        "id": "medium_01",
+        "encoding": "188caf0007080808810000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_02",
+        "encoding": "088a8fc00608c902040400000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_03",
+        "encoding": "0a8f8c0006088902040000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_04",
+        "encoding": "1888acf0040a0582420100000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_05",
+        "encoding": "58acbc8004ca0502080800000",
+        "difficulty": "medium",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_06",
+        "encoding": "188acf0006090884020000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_07",
+        "encoding": "4f888ac0050a04c8020200000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_08",
+        "encoding": "08cad8a006080902814080000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_09",
+        "encoding": "2ac88cb006890804084080000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_10",
+        "encoding": "08acf80007080888020000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_11",
+        "encoding": "2ea89c00050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_12",
+        "encoding": "28a8dac007084808810400000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_13",
+        "encoding": "18acf800040b0484020000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_14",
+        "encoding": "2c8af800048a0502080000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_15",
+        "encoding": "1a8f8c80040ac502040400000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_16",
+        "encoding": "1ea89c0006088902040000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_17",
+        "encoding": "2f8ac80006080902810000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_18",
+        "encoding": "2ac8c8b007080808814080000",
+        "difficulty": "medium",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_19",
+        "encoding": "488fca00050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_20",
+        "encoding": "38da8ac006088942040200000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_21",
+        "encoding": "288afc80050a8408440100000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_22",
+        "encoding": "3b8ca8c006080902c10100000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_23",
+        "encoding": "2da8ca00048a0502080000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_24",
+        "encoding": "088a8cf006098804440100000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_25",
+        "encoding": "08ce9a0006880902080000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_26",
+        "encoding": "4c8af80006080982020000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_27",
+        "encoding": "1f8ac800040a0502810000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_28",
+        "encoding": "0a8fc80006090884020000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_29",
+        "encoding": "1a88cf8007088808440100000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_30",
+        "encoding": "0a88fc00050a0488020000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_31",
+        "encoding": "28eac9800608c902040400000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_32",
+        "encoding": "1ca88f00040b0404810000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_33",
+        "encoding": "1cada800040a0502810000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_34",
+        "encoding": "1cae8900040a0502810000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_35",
+        "encoding": "2e9a88c006080902c10100000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_36",
+        "encoding": "2aca9c00040b0484020000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_37",
+        "encoding": "08a8f8c0048a0542080200000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_38",
+        "encoding": "1a88fc00050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_39",
+        "encoding": "4afc880007880808080000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_40",
+        "encoding": "38ac88f0044b8404040800000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_41",
+        "encoding": "28cac8b007880808480100000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_42",
+        "encoding": "38f8ac0006880902080000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_43",
+        "encoding": "0a8c8f00058a0408080000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_44",
+        "encoding": "28f8a8c007880808480100000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_45",
+        "encoding": "29e8ac80040a4582020400000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_46",
+        "encoding": "3f88a8c0040a0582420100000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_47",
+        "encoding": "188acf00040a8502040000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_48",
+        "encoding": "0a8f8c00050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_49",
+        "encoding": "18aec90007080888020000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_50",
+        "encoding": "0a8cf88007480808810800000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_51",
+        "encoding": "088c8af005ca0408080800000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_52",
+        "encoding": "0a88cf00050a0488020000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_53",
+        "encoding": "3a888cf007884808080400000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_54",
+        "encoding": "3c88af00040b8404040000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_55",
+        "encoding": "2fa8c800040b0404810000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_56",
+        "encoding": "3f8a8c00040b0484020000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_57",
+        "encoding": "08cbca00058a0408080000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_58",
+        "encoding": "08da8ac007488808040800000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_59",
+        "encoding": "1a88cf00050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_60",
+        "encoding": "58cf8a8006c90804080800000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_61",
+        "encoding": "1ca88cb006490804810800000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_62",
+        "encoding": "1eac8900050a0408810000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_63",
+        "encoding": "48caf80006880902080000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_64",
+        "encoding": "08c8af80050a4408810400000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_65",
+        "encoding": "0a8c8f80044b8404040800000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_66",
+        "encoding": "3e89ac80050a0408814080000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_67",
+        "encoding": "2a88f8c0040b04c4020200000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_68",
+        "encoding": "388caf00048b0404080000000",
+        "difficulty": "medium",
+        "optimal_steps": 7,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_69",
+        "encoding": "3fa888c006890804480100000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_70",
+        "encoding": "4a8d8ac006090884024080000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_71",
+        "encoding": "38f8a8c0058a0408480100000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_72",
+        "encoding": "488cbac006488902040800000",
+        "difficulty": "medium",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_73",
+        "encoding": "0aec890007088808040000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_74",
+        "encoding": "2c88ae90040b0484024080000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_75",
+        "encoding": "088cacb0058a0408084080000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_76",
+        "encoding": "0adac800050a8408040000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_77",
+        "encoding": "18a8fc00050a0488020000000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_78",
+        "encoding": "0a8f8c0007080808810000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_79",
+        "encoding": "08fa8c0006080982020000000",
+        "difficulty": "medium",
+        "optimal_steps": 5,
+        "description": "Random Tree with 5 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "medium_80",
+        "encoding": "18a8c8f006088902044080000",
+        "difficulty": "medium",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      }
+    ]
+  },
+  "hard": {
+    "description": "Hard difficulty levels",
+    "graph_mode": "random_tree",
+    "no_loops": false,
+    "cases": [
+      {
+        "id": "hard_01",
+        "encoding": "58cfa88007480888020800000",
+        "difficulty": "hard",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_02",
+        "encoding": "4a8fe8c0050ac408040400000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_03",
+        "encoding": "1c8b8eac06894804080420400",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_04",
+        "encoding": "68acccba06092884024084000",
+        "difficulty": "hard",
+        "optimal_steps": 11,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_05",
+        "encoding": "08cae89006088902440100000",
+        "difficulty": "hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_06",
+        "encoding": "3cfa8ca0040a4502810400000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_07",
+        "encoding": "3eaca9c0048a0502480100000",
+        "difficulty": "hard",
+        "optimal_steps": 10,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_08",
+        "encoding": "3de8aac007080888420100000",
+        "difficulty": "hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_09",
+        "encoding": "5ac8888f06498804040820400",
+        "difficulty": "hard",
+        "optimal_steps": 5,
+        "description": "Random Tree with 7 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_10",
+        "encoding": "18a8fec0050a0448810200000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_11",
+        "encoding": "08ac8f8006090804c10100000",
+        "difficulty": "hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_12",
+        "encoding": "2f8ac88006080902814080000",
+        "difficulty": "hard",
+        "optimal_steps": 5,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_13",
+        "encoding": "58c8bca0060908c4020200000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_14",
+        "encoding": "0acbc8e0050a0488024080000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_15",
+        "encoding": "28a8f8ec040b2444810204000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_16",
+        "encoding": "08ac8fe0050a8408044080000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_17",
+        "encoding": "2e888caf040a6582020404000",
+        "difficulty": "hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_18",
+        "encoding": "488ceaf0040a8502044080000",
+        "difficulty": "hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_19",
+        "encoding": "4c88eaf006880902084080000",
+        "difficulty": "hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 6 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "hard_20",
+        "encoding": "3ca9ac8007084808810400000",
+        "difficulty": "hard",
+        "optimal_steps": 6,
+        "description": "Random Tree with 6 rooms, 2 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      }
+    ]
+  },
+  "very_hard": {
+    "description": "Very_hard difficulty levels",
+    "graph_mode": "random_tree",
+    "no_loops": false,
+    "cases": [
+      {
+        "id": "very_hard_01",
+        "encoding": "388e8e9ac53a8448040208080",
+        "difficulty": "very_hard",
+        "optimal_steps": 10,
+        "description": "Random Tree with 8 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_02",
+        "encoding": "088accaf040a8502440120400",
+        "difficulty": "very_hard",
+        "optimal_steps": 11,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_03",
+        "encoding": "08ce9aac06480982022800800",
+        "difficulty": "very_hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_04",
+        "encoding": "0aec89ca06090844810220400",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_05",
+        "encoding": "1eaece89040b04a4024082000",
+        "difficulty": "very_hard",
+        "optimal_steps": 10,
+        "description": "Random Tree with 7 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_06",
+        "encoding": "08aacefc852a0408814098004",
+        "difficulty": "very_hard",
+        "optimal_steps": 11,
+        "description": "Random Tree with 8 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_07",
+        "encoding": "0ae8eec905ca0408082800800",
+        "difficulty": "very_hard",
+        "optimal_steps": 10,
+        "description": "Random Tree with 7 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_08",
+        "encoding": "2c88acfa040bc404040420400",
+        "difficulty": "very_hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_09",
+        "encoding": "0ac8fc8ae7080888620101102",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 8 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_10",
+        "encoding": "1faccae8058a0408480120400",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 7 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_11",
+        "encoding": "5c8ecaaf07084888020420400",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 7 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_12",
+        "encoding": "18888aefc6c80912082800820",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 8 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_13",
+        "encoding": "18a8cfca040b0484420120400",
+        "difficulty": "very_hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_14",
+        "encoding": "0ace98ca044b0424810802000",
+        "difficulty": "very_hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_15",
+        "encoding": "1c898caae609c824140402010",
+        "difficulty": "very_hard",
+        "optimal_steps": 8,
+        "description": "Random Tree with 8 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_16",
+        "encoding": "2aea8cadc43b0484420108080",
+        "difficulty": "very_hard",
+        "optimal_steps": 11,
+        "description": "Random Tree with 8 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_17",
+        "encoding": "38acac8ef6180942a10201080",
+        "difficulty": "very_hard",
+        "optimal_steps": 11,
+        "description": "Random Tree with 8 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_18",
+        "encoding": "08ada8ec06c82902080804000",
+        "difficulty": "very_hard",
+        "optimal_steps": 7,
+        "description": "Random Tree with 7 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_19",
+        "encoding": "2ac8ac8f842a5582020408040",
+        "difficulty": "very_hard",
+        "optimal_steps": 9,
+        "description": "Random Tree with 8 rooms, 3 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      },
+      {
+        "id": "very_hard_20",
+        "encoding": "0ace8fca07480808810820400",
+        "difficulty": "very_hard",
+        "optimal_steps": 10,
+        "description": "Random Tree with 7 rooms, 4 lock(s)/key(s), softlock possible",
+        "graph_mode": "random_tree",
+        "has_cycles": false,
+        "softlock_possible": true
+      }
+    ]
+  }
+}
