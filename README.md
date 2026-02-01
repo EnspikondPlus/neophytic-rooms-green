@@ -70,7 +70,7 @@ Using this system, the Rooms Green Agent tests agentic ability at logical reason
 
 ## Purple Agent Configuration
 For the .toml when submitting for a leaderboard, the following configuration schema should be used:
-```
+```bash
 [config]
 generate = bool                     # Whether to generate new test cases
 count = int                         # Number of test cases to generate or run
@@ -89,7 +89,7 @@ commit_reset = true                 # Whether to reset agent view of inspected r
 Generating creates new room systems, and encodings are provided for repeatability. If `generate` is false, then room systems are pulled from the `src/benchmarks/standard_systems.json`. If count is greater than the number of total room systems or the number of total room systems of the specified type in `standard_systems`, the progrma will default to all systems of the type being run.
 
 Here's an example configuration:
-```
+```bash
 [config]
 generate = true
 count = 20
@@ -102,6 +102,14 @@ obs_inspect_weight = 4.0
 failure_show = false
 failure_consequence = 1.0
 commit_reset = true
+```
+
+## Visualizer
+The visualizer is a useful tool to help you see the layout of room systems. Run it with:
+```bash
+uv sync --extra test
+
+python viz.py <encoding>   # encoding goes here
 ```
 
 ## Work in Progress

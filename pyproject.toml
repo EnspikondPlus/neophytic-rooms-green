@@ -9,6 +9,8 @@ dependencies = [
     "pydantic>=2.12.5",
     "uvicorn>=0.38.0",
     "openenv-core @ git+https://github.com/meta-pytorch/OpenEnv.git",
+    "networkx>=3.0",
+    "matplotlib>=3.8.0",
 ]
 
 [project.optional-dependencies]

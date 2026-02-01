@@ -13,7 +13,7 @@ import random
 from .benchmarks.room_gen import generate_random_system
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve()
+BASE_DIR = Path(__file__).resolve().parent
 json_path = BASE_DIR / "benchmarks" / "standard_systems.json"
 
 class EvalRequest(BaseModel):
@@ -154,7 +154,7 @@ class Agent:
                     )
 
                     if done:
-                        success = obs.success if hasattr(obs, 'success') else False
+                        success = self.env._state.success
                         break
 
                 # Store this run's result
@@ -162,7 +162,7 @@ class Agent:
                     "run_index": run_index,
                     "success": success,
                     "total_loss": weighted_loss,
-                    "steps_taken": step_count,
+                    "steps_taken": max_steps - self.env._state.actions_remaining,
                     "max_steps": max_steps,
                     "encoding": run["encoding"],
                     "final_observation": obs.model_dump(),
