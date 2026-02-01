@@ -3,9 +3,7 @@ import json
 import collections
 
 
-# ---------------------------------------------------------------------------
-# 1.  ENCODER  (unchanged — do not modify)
-# ---------------------------------------------------------------------------
+# 1. Room Encoder
 
 def encode_room_system(
     room_included: list[int],
@@ -40,16 +38,9 @@ def encode_room_system(
     return hex(int(bits, 2))[2:].zfill(25)
 
 
-# ---------------------------------------------------------------------------
-# 2.  GRAPH GENERATORS
-#     Three modes, all guaranteed to produce a single connected component.
-# ---------------------------------------------------------------------------
+# 2. Graph Generator
 
 def _generate_random_tree(num_rooms: int) -> dict[int, list[int]]:
-    """
-    Classic random-tree construction.  Each new node attaches to a uniformly
-    random existing node.  Result: a connected, cycle-free graph.
-    """
     adj: dict[int, list[int]] = {i: [] for i in range(num_rooms)}
     for i in range(1, num_rooms):
         parent = random.randint(0, i - 1)
@@ -59,12 +50,6 @@ def _generate_random_tree(num_rooms: int) -> dict[int, list[int]]:
 
 
 def _generate_binary_tree(num_rooms: int) -> dict[int, list[int]]:
-    """
-    Strict binary-tree construction.  Each node may have at most 2 children.
-    Nodes are assigned as children in BFS order (level by level, left to right).
-    Result: a connected, cycle-free graph where every node has degree <= 3
-    (<=2 children + 1 parent; root has no parent so degree <= 2).
-    """
     adj: dict[int, list[int]] = {i: [] for i in range(num_rooms)}
     parent_queue: collections.deque[tuple[int, int]] = collections.deque([(0, 2)])
 
@@ -85,11 +70,6 @@ def _generate_binary_tree(num_rooms: int) -> dict[int, list[int]]:
 
 
 def _generate_general_graph(num_rooms: int) -> dict[int, list[int]]:
-    """
-    Starts with a random spanning tree (guarantees connectivity), then adds
-    extra edges (cycles) at random.  At least 1 extra edge is always added so
-    the graph is guaranteed to contain a cycle.
-    """
     adj: dict[int, list[int]] = _generate_random_tree(num_rooms)
 
     existing: set[tuple[int, int]] = set()
@@ -114,19 +94,10 @@ def _generate_general_graph(num_rooms: int) -> dict[int, list[int]]:
 
     return adj
 
-
 def generate_graph(num_rooms: int, mode: str, no_loops: bool) -> dict[int, list[int]]:
-    """
-    Dispatcher.  Respects the no_loops flag:
-      - no_loops=True AND mode="general"  -> falls back to random_tree
-      - binary_tree and random_tree are inherently loop-free.
-
-    mode in {"random_tree", "binary_tree", "general"}
-    """
     if no_loops and mode == "general":
         mode = "random_tree"
 
-    # A cycle requires >= 3 nodes; fall back silently for tiny graphs
     if mode == "general" and num_rooms < 3:
         mode = "random_tree"
 
@@ -139,7 +110,6 @@ def generate_graph(num_rooms: int, mode: str, no_loops: bool) -> dict[int, list[
 
 
 def _has_cycle(adj: dict[int, list[int]], num_rooms: int) -> bool:
-    """Simple DFS cycle detection for undirected graph."""
     visited: set[int] = set()
 
     def dfs(node: int, parent: int) -> bool:
@@ -157,11 +127,9 @@ def _has_cycle(adj: dict[int, list[int]], num_rooms: int) -> bool:
     return dfs(0, -1)
 
 
-# ---------------------------------------------------------------------------
-# 3.  STATE-SPACE BFS SOLVER
-# ---------------------------------------------------------------------------
+# 3. BFS Solver
 
-def is_solvable_v2(
+def is_solvable(
     adj: dict[int, list[int]],
     num_rooms: int,
     start: int,
@@ -172,21 +140,6 @@ def is_solvable_v2(
     init_opened: frozenset | None = None,
     init_collected: frozenset | None = None,
 ) -> bool:
-    """
-    Determines whether there EXISTS any sequence of moves that reaches the exit.
-
-    Keys are fungible: any key opens any single locked door.  The player chooses
-    which door to spend a key on, so we must search over all possible choices.
-
-    State = (current_room, frozenset_of_opened_doors, frozenset_of_collected_keys)
-    keys_held = len(collected) - len(opened)   (derived)
-
-    Max state space for <= 8 rooms, <= 4 keys: 8 x 2^4 x 2^4 = 2048 -- instant.
-
-    Optional keyword arguments (init_opened, init_collected) let the softlock
-    detector seed the search with a pre-existing world state so it can simulate
-    "what happens after the player already made one specific choice?"
-    """
     locked_frozen = frozenset(locked_rooms)
     key_frozen = frozenset(key_rooms)
 
@@ -196,13 +149,11 @@ def is_solvable_v2(
             return collected | frozenset([room])
         return collected
 
-    # --- Build initial state ---
     if init_opened is None:
         init_opened = frozenset()
     if init_collected is None:
         init_collected = frozenset()
 
-    # Always collect the key at the start room
     init_collected = collect(start, init_collected)
 
     start_state = (start, init_opened, init_collected)
@@ -222,7 +173,6 @@ def is_solvable_v2(
                 continue
 
             if neighbor in locked_frozen and neighbor not in opened:
-                # Locked and sealed -- need a key to open
                 if held <= 0:
                     continue
 
@@ -233,7 +183,6 @@ def is_solvable_v2(
                     visited.add(state)
                     queue.append(state)
             else:
-                # Unlocked or already opened -- free passage
                 new_collected = collect(neighbor, collected)
                 state = (neighbor, opened, new_collected)
                 if state not in visited:
@@ -243,9 +192,7 @@ def is_solvable_v2(
     return False
 
 
-# ---------------------------------------------------------------------------
-# 4.  SOFTLOCK DETECTOR
-# ---------------------------------------------------------------------------
+# 4. Softlock Detection
 
 def can_be_softlocked(
     adj: dict[int, list[int]],
@@ -255,27 +202,9 @@ def can_be_softlocked(
     locked_rooms: set[int],
     key_rooms: set[int],
 ) -> bool:
-    """
-    Returns True if there exists at least one reachable locked door that, if
-    opened first ("wastefully"), leaves the player unable to reach the exit.
-
-    Algorithm
-    ---------
-    1. BFS from start ignoring all locked doors  -> free_area.
-    2. Collect all keys in free_area             -> keys the player holds
-       before making any door-opening decision.
-    3. Identify frontier_locks: locked rooms adjacent to free_area.
-    4. For each frontier lock W:
-         Seed the solver with:
-           opened    = {W}                  <- key already spent on W
-           collected = keys_in(free_area)   <- everything freely reachable
-         The solver's collect() will additionally pick up any key inside W.
-         If the solver returns False -> opening W first is a softlock.
-    """
     locked_frozen = frozenset(locked_rooms)
     key_frozen = frozenset(key_rooms)
 
-    # --- 1. Free area (reachable without opening any locked door) ---
     free_area: set[int] = set()
     q: collections.deque = collections.deque([start])
     free_area.add(start)
@@ -285,17 +214,15 @@ def can_be_softlocked(
             if v >= num_rooms or v in free_area:
                 continue
             if v in locked_frozen:
-                continue  # blocked
+                continue
             free_area.add(v)
             q.append(v)
 
-    # --- 2. Keys collected in free area ---
     collected_in_free: frozenset = frozenset(free_area & key_frozen)
 
     if len(collected_in_free) == 0:
-        return False  # no keys to waste
+        return False
 
-    # --- 3. Frontier locks ---
     frontier_locks: set[int] = set()
     for u in free_area:
         for v in adj[u]:
@@ -305,11 +232,10 @@ def can_be_softlocked(
     if not frontier_locks:
         return False
 
-    # --- 4. Try wasting a key on each frontier lock ---
     for wasteful_door in frontier_locks:
         seeded_opened = frozenset([wasteful_door])
 
-        still_solvable = is_solvable_v2(
+        still_solvable = is_solvable(
             adj,
             num_rooms,
             start,
@@ -321,14 +247,12 @@ def can_be_softlocked(
         )
 
         if not still_solvable:
-            return True  # wasting a key on this door -> softlock
+            return True
 
     return False
 
 
-# ---------------------------------------------------------------------------
-# 5.  GENERATOR
-# ---------------------------------------------------------------------------
+# 5. Generator
 
 GRAPH_MODES = ("random_tree", "binary_tree", "general")
 
@@ -339,21 +263,6 @@ def generate_random_system(
     no_loops: bool = True,
     require_softlock: bool = False,
 ) -> dict:
-    """
-    Generates a single valid room system.  Retries until all constraints pass.
-
-    Parameters
-    ----------
-    difficulty_settings : dict
-        Must contain 'rooms': (min, max) and 'locks': (min, max).
-    graph_mode : str
-        One of "random_tree", "binary_tree", "general".
-    no_loops : bool
-        If True, cycles are forbidden (general mode falls back to random_tree).
-    require_softlock : bool
-        If True, the generated system must have at least one softlock trap.
-        Only meaningful when locks > 0; ignored otherwise.
-    """
     min_rooms, max_rooms = difficulty_settings["rooms"]
     min_locks, max_locks = difficulty_settings["locks"]
 
@@ -363,45 +272,36 @@ def generate_random_system(
     while attempts < max_attempts:
         attempts += 1
 
-        # --- 1. Room count ---
         num_rooms = random.randint(min_rooms, max_rooms)
 
-        # --- 2. Connected graph ---
         adj = generate_graph(num_rooms, graph_mode, no_loops)
 
-        # --- 3. Start and exit (distinct) ---
         start_room = random.randint(0, num_rooms - 1)
         possible_exits = [n for n in range(num_rooms) if n != start_room]
         exit_room = random.choice(possible_exits)
 
-        # --- 4. Lock count ---
         num_locks = random.randint(min_locks, max_locks)
 
-        # Can't lock the start room (player begins there)
         lock_candidates = [n for n in range(num_rooms) if n != start_room]
         if num_locks > len(lock_candidates):
             num_locks = len(lock_candidates)
 
         locked_rooms = set(random.sample(lock_candidates, num_locks))
 
-        # --- 5. Key placement (exactly num_locks keys, one per room) ---
         if num_locks > num_rooms:
             continue
 
         key_rooms = set(random.sample(list(range(num_rooms)), num_locks))
 
-        # --- 6. Solvability ---
-        if not is_solvable_v2(adj, num_rooms, start_room, exit_room, locked_rooms, key_rooms):
+        if not is_solvable(adj, num_rooms, start_room, exit_room, locked_rooms, key_rooms):
             continue
 
-        # --- 7. Softlock requirement ---
         if require_softlock and num_locks > 0:
             if not can_be_softlocked(
                 adj, num_rooms, start_room, exit_room, locked_rooms, key_rooms
             ):
                 continue
 
-        # --- 8. Encode ---
         room_included = [1 if i < num_rooms else 0 for i in range(8)]
         room_locked_list = [1 if i in locked_rooms else 0 for i in range(8)]
         room_haskey_list = [1 if i in key_rooms else 0 for i in range(8)]
@@ -425,7 +325,6 @@ def generate_random_system(
         except Exception:
             continue
 
-        # --- 9. Metadata ---
         bfs_q: collections.deque = collections.deque([(start_room, 0)])
         bfs_v: set[int] = {start_room}
         dist = 0
@@ -462,25 +361,12 @@ def generate_random_system(
     )
 
 
-# ---------------------------------------------------------------------------
-# 6.  DATASET GENERATION
-# ---------------------------------------------------------------------------
+# 6. Dataset Generation
 
 def generate_dataset(
     graph_mode: str = "random_tree",
     no_loops: bool = True,
 ) -> dict:
-    """
-    Main entry point.  Generates the full tiered dataset.
-
-    Parameters
-    ----------
-    graph_mode : str
-        "random_tree" | "binary_tree" | "general"
-    no_loops : bool
-        If True, general mode is suppressed (falls back to random_tree).
-        binary_tree and random_tree are always loop-free.
-    """
     difficulties = {
         "tutorial":  {"rooms": (2, 3), "locks": (0, 0), "count": 20, "softlock": False},
         "easy":      {"rooms": (4, 5), "locks": (0, 1), "count": 60, "softlock": False},
@@ -522,9 +408,7 @@ def generate_dataset(
     return output_data
 
 
-# ---------------------------------------------------------------------------
-# 7.  CLI
-# ---------------------------------------------------------------------------
+# 7. CLI
 
 if __name__ == "__main__":
     import argparse

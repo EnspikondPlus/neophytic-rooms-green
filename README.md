@@ -11,7 +11,7 @@ src/
 ├─ agent.py                   # Agent implementation
 └─ messenger.py               # A2A messaging utilities
 benchmarks/
-├─ room_gen.py                # Room system generation script
+├─ room_gen.py                # Room system generation script with CLI support
 └─ standard_systems.json      # A set of 200 standardized systems for benchmarking
 rooms/
 └─ server/
@@ -68,5 +68,45 @@ During the Observation phase, the agent is free to move around the room system, 
 
 Using this system, the Rooms Green Agent tests agentic ability at logical reasoning with imperfect information, cost-benefit analysis, long-term memory, and failure recognition. There are several configurations of room systems of various difficulty prebuilt into the Rooms agent, and additional configurations can be generated using an encoding schema, allowing for high scalability.
 
+## Purple Agent Configuration
+For the .toml when submitting for a leaderboard, the following configuration schema should be used:
+```
+[config]
+generate = bool                     # Whether to generate new test cases
+count = int                         # Number of test cases to generate or run
+
+# difficulty of room system configuration
+difficulty = "random" | "tutorial" | "easy" | "medium" | "hard" | "very hard"
+no_loops = false                    # Whether test cases with loops should be generated
+
+actions_remaining = 30              # Max actions in execution phase a model has
+obs_inspect_weight = 3.0            # Weight of INSPECTing in observation phase
+failure_show = true                 # Whether to indicate failed actions or not
+failure_consequence = 0.0           # Whether to punish failed actions or not
+commit_reset = true                 # Whether to reset agent view of inspected rooms after COMMMITing
+```
+
+Generating creates new room systems, and encodings are provided for repeatability. If `generate` is false, then room systems are pulled from the `src/benchmarks/standard_systems.json`. If count is greater than the number of total room systems or the number of total room systems of the specified type in `standard_systems`, the progrma will default to all systems of the type being run.
+
+Here's an example configuration:
+```
+[config]
+generate = true
+count = 20
+
+difficulty = "medium"
+no_loops = true
+
+actions_remaining = 25
+obs_inspect_weight = 4.0
+failure_show = false
+failure_consequence = 1.0
+commit_reset = true
+```
+
 ## Work in Progress
-Currently, the benchmark isn't entirely well-polished. There is much more functionality to add, and some more testing and robustness would be good. The plan is to update this benchmark soon to make some improvements, regardless of whether it counts for submission later on.
+More robustness, scaling, and features can be added to the benchmark.
+* Additional documentation for game aspects of note and ideas for solving.
+* Hardening through more explicit types, error catching, etc.
+* Support for scaling to larger room sizes, with more test customization options.
+* Improved and adaptive output prompting for traditional RL and agentic A2A agents.
