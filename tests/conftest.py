@@ -26,21 +26,21 @@ def agent_server(request):
     if not request.config.getoption("--start-server"):
         yield None
         return
-    
+
     project_root = Path(__file__).parent.parent
     server_script = project_root / "src" / "server.py"
-    
+
     print("\n🟢 Starting green agent server...")
     process = subprocess.Popen(
         [sys.executable, str(server_script), "--host", "127.0.0.1", "--port", "9009"],
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
     )
-    
+
     time.sleep(3)
-    
+
     yield process
-    
+
     print("\n🛑 Stopping green agent server...")
     process.terminate()
     process.wait(timeout=5)
@@ -50,10 +50,10 @@ def agent_server(request):
 def agent(request, agent_server):
     """Green agent URL fixture. Green agent must be running before tests start."""
     url = request.config.getoption("--agent-url")
-    
+
     if agent_server:
         time.sleep(2)
-    
+
     max_retries = 5
     for i in range(max_retries):
         try:
@@ -68,7 +68,7 @@ def agent(request, agent_server):
                 pytest.exit(
                     f"❌ Could not connect to green agent at {url} after {max_retries} retries: {e}\n"
                     f"   Make sure the green agent is running: python src/server.py",
-                    returncode=1
+                    returncode=1,
                 )
-    
+
     pytest.exit(f"Green agent at {url} returned status {response.status_code}", returncode=1)

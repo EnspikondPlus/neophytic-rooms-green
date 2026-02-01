@@ -30,7 +30,7 @@ class RoomsObservation(Observation):
 
     # Resources Management Knowledge
     current_keys: int = Field(..., description="Number of keys currently held.")
-    steps_remaining: int = Field(..., description="Number of execution phase steps remaining.")
+    actions_remaining: int = Field(..., description="Number of execution phase steps remaining.")
     obs_inspect_weight: float = Field(..., description="Cost of inspecting a room in the observation phase.")
 
 class RoomsState(State):

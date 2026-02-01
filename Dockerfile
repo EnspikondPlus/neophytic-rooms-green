@@ -7,7 +7,6 @@ WORKDIR /home/agent
 COPY --chown=agent:agent pyproject.toml uv.lock README.md ./
 COPY --chown=agent:agent src src
 COPY --chown=agent:agent rooms rooms
-COPY --chown=agent:agent benchmarks benchmarks
 
 RUN \
     --mount=type=cache,target=/home/agent/.cache/uv,uid=1000 \

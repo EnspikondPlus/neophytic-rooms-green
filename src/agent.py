@@ -10,7 +10,11 @@ from rooms.models import RoomsAction, Command
 import json
 import traceback
 import random
-from benchmarks.room_gen import generate_random_system
+from .benchmarks.room_gen import generate_random_system
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve()
+json_path = BASE_DIR / "benchmarks" / "standard_systems.json"
 
 class EvalRequest(BaseModel):
     """Request format sent by the AgentBeats platform to green agents."""
@@ -286,7 +290,7 @@ class Agent:
                 cases.append(case)
         else:
             # BUG FIX: json.loads() expects a string, not a file object — use .read()
-            with open('/benchmarks/standard_systems.json') as jsonfile:
+            with open(json_path) as jsonfile:
                 data = json.loads(jsonfile.read())
             total_tests = {}
             all_cases = []
@@ -314,7 +318,7 @@ class Agent:
 Current Room: {obs.current_room}
 Phase: {"Observation" if obs.committed == 0 else "Execution"}
 Keys Held: {obs.current_keys}
-Steps Remaining: {obs.steps_remaining}
+Steps Remaining: {obs.actions_remaining}
 
 Room Status (1 means true and 0 means false):
 Rooms Visited: {obs.room_visited}

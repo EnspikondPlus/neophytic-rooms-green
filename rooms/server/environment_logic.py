@@ -90,6 +90,6 @@ def build_observation(state: RoomsState) -> RoomsObservation :
         room_haskey=[state.room_haskey[i] if state.room_inspected[i] == 1 else -1 for i in range(8)],
         room_exit=[state.room_exit[i] if state.room_inspected[i] == 1 else -1 for i in range(8)],
         current_keys=state.current_keys,
-        steps_remaining=state.steps_remaining,
+        actions_remaining=state.actions_remaining,
         obs_inspect_weight=state.obs_inspect_weight
     )

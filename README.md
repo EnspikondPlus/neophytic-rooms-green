@@ -34,6 +34,8 @@ To see how to make a green agent for AgentBeats, see this [draft PR](https://git
 
 ## Running Server Locally
 
+You can create a `.venv` first, if needed.
+
 ```bash
 uv sync
 
@@ -41,21 +43,20 @@ uv run green-server
 ```
 
 ## Running Tests Locally
+
+Make sure that the server is running first!
+
 ```bash
 uv sync --extra test
 
-uv run pytest tests/test_agent.py -v --start-server
+uv run pytest tests/test_agent.py -v
 ```
 
 ## Running with Docker
 ```bash
-docker build -t green-agent .
+docker build -t neophytic-rooms .
 
-# Preconfigured run (do this after the purple baseline server is up)
-docker run --rm --network agent-net -v "${PWD}/logs:/home/agent/logs" green-agent green-cli --purple-url http://purple-container:8000 --categories tutorial
-
-# On Powershell
-docker run --rm --network agent-net -v "${PWD}/logs:/home/agent/logs" green-agent green-cli --purple-url <purple_agent_address> --categories <task_category>
+docker run --rm neophytic-rooms
 ```
 
 ## About the Benchmark
